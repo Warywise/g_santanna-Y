@@ -3,5 +3,9 @@ O que eu vou aprender na Trybe:
 - Unix     X
 - Bash     X
 - Git      X
-- HTML
-- CSS        
+- HTML     X
+- CSS    . . .  Se dividirá em muitos conteúdos . . .
+<div>   >overflow   >margin   >border   >width & height   >padding   >display
+>z-index   >position   >top, left, right   >float   >pseudoclass (visited, hover, active)
+
+
