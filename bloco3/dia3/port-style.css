@@ -9,28 +9,64 @@
     src: url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
 }
 
+a:visited {
+    color: black;
+}
+a:active{
+    color: white;
+}
+a:hover {
+    background-color: darkgray;
+}
+
+img.foto:hover {
+    zoom: 155%;
+    float: right;
+}
+
 body {
-    background-image: url("digital-png-5.png");
-    background-color: lightgray;
-    background-size: 350px;
+    background-image: url("https://github.com/Warywise/g_santanna-Y/blob/master/bloco3/images/wiki-background.jpg?raw=true");
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-position-x: right;
     }
 
+    /*Imagem alternativa p/ BG=> "https://besthqwallpapers.com/Uploads/8-2-2020/120808/thumb2-circuit-board-texture-blue-neon-digital-texture-technology-background-digital-art.jpg" <|||> "https://images.unsplash.com/photo-1607677686474-ad91fc94f5ae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1528&q=80"*/
+
 .text {
+    background-color: 	#E6E6FA;
     padding-left: 10px;
-    color: #1C1C1C;
+    color: #363636;
     font-family: Source Sans Pro , sans-serif;
-    font-size: 1.1em;
-    max-width: 70%;
-}    
+    font-size: 1.2em;
+    max-width: 75%;
+    margin: auto;
+    margin-top: 5%;
+    border-radius: 3%;
+    border: double black;
+    
+}
+
+.text-content {
+    max-width: 40%;
+}
+
+.skills {
+    position: relative;
+    display: inline-block;
+}
+
+.marker {
+
+}
 
 img.foto {
+    float: right;
     display: block;
-    margin-left: 40%;
+    margin-right: 5%;
     width: 200px;
     border-radius: 5%;
+    border: thin solid;
 }
 
 h1 {
@@ -40,9 +76,20 @@ h1 {
 }
 
 h2 {
-    padding: 5px;
+    padding: 8px;
     padding-left: 20px;
     text-decoration: underline;
+}
+
+#sumary {
+    position: fixed;
+    background-color: #708090;
+    right: 0;
+    left: 0;
+    top: 0;
+    box-shadow: black;
+    border-bottom: black thin solid;
+    
 }
 
 .head-sumary {
@@ -50,9 +97,18 @@ h2 {
     border-style: double;
     border-color: black;
     font-size: 1.5rem;
-    padding: 5px;
-    background-color: darkgrey;
+    font-weight: 550;
+    padding: 3px;
     float: left;
+    margin: 3px;
     
+}
+
+#email {
+    font-size: 1.5rem;
+    float: right;
+    padding: 5px;
+    margin-right: 1%;
+    font-weight: 700;
 }
 
