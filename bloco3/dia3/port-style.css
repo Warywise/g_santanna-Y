@@ -45,10 +45,19 @@ body {
     border-radius: 3%;
     border: double black;
     
-}    
+}
 
 .text-content {
     max-width: 40%;
+}
+
+.skills {
+    position: relative;
+    display: inline-block;
+}
+
+.marker {
+
 }
 
 img.foto {
