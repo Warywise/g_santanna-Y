@@ -20,8 +20,9 @@ a:hover {
 }
 
 img.foto:hover {
-    zoom: 155%;
-    float: right;
+    zoom: 171%;
+    right: 10%;
+    position: absolute;
 }
 
 body {
@@ -48,15 +49,16 @@ body {
 }
 
 .text-content {
-    max-width: 40%;
+    
 }
 
 .skills {
-    position: relative;
-    display: inline-block;
+    /* position: sticky; */
+    /* display: list-item; */
 }
 
 .marker {
+    
 
 }
 
@@ -69,6 +71,46 @@ img.foto {
     border: thin solid;
 }
 
+.terminal {
+    text-align: center;
+    margin-right: 50px;
+    padding: 10px;
+    
+    margin-bottom: 180px;
+}
+.terminal img {
+    float: left;
+    margin: 10px;
+    border-radius: 8%;
+    border: double black;
+}
+
+.git {
+    text-align: center;
+    margin-left: 50px;
+    padding: 10px;
+    margin-bottom: 180px;
+}
+.git img {
+    float: right;
+    margin: 10px;
+    border-radius: 8%;
+    border: double black;
+}
+
+.html-css {
+    text-align: center;
+    margin-right: 50px;
+    padding: 10px;
+    margin-bottom: 180px;
+}
+.html-css img {
+    float: left;
+    margin: 10px;
+    border-radius: 8%;
+    border: double black;
+}
+
 h1 {
     padding-top: 50px;
     text-align: center;
@@ -76,7 +118,8 @@ h1 {
 }
 
 h2 {
-    padding: 8px;
+    padding: 10px;
+    padding-top: 25px;
     padding-left: 20px;
     text-decoration: underline;
 }
