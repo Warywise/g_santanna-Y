@@ -27,8 +27,9 @@ img.foto:hover {
 }
 
 body {
-    background-image: url("https://github.com/Warywise/g_santanna-Y/blob/master/bloco3/images/wiki-background.jpg?raw=true");
+    background-image: url("../images/code-black-background-1366x768.jpg");
     background-size: cover;
+    background-attachment: ;
     background-repeat: no-repeat;
     background-attachment: scroll;
     }
@@ -45,15 +46,7 @@ body {
     margin: auto;
     margin-top: 5%;
     border-radius: 3%;
-    border: double black;
-    
-}
-
-.text-content {
-    
-}
-ul{
-    list-style: none;
+    border: 5px groove #A49B83;   
 }
 
 .tag-list::before {
@@ -85,7 +78,7 @@ img.foto {
     text-align: center;
     margin-right: 50px;
     padding: 10px;
-    margin-bottom: 160px;
+    margin-bottom: 3em;
 }
 .terminal img {
     float: left;
@@ -98,7 +91,7 @@ img.foto {
     text-align: center;
     margin-left: 50px;
     padding: 10px;
-    margin-bottom: 160px;
+    margin-bottom: 3em;
 }
 .git img {
     float: right;
@@ -111,7 +104,7 @@ img.foto {
     text-align: center;
     margin-right: 50px;
     padding: 10px;
-    margin-bottom: 160px;
+    margin-bottom: 8em;
 }
 .html-css img {
     float: left;
