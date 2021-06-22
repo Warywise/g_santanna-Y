@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     text-decoration: none;
+    scroll-behavior: smooth;
 }
 
 @font-face {
@@ -17,7 +18,72 @@ a:active{
     color: white;
 }
 a:hover {
-    background-color: #A49B83;
+    background-color: #637167;
+}
+
+body {
+    background-image: url("https://github.com/Warywise/g_santanna-Y/blob/3.3/bloco3/images/code-black-background-1366x768.jpg?raw=true");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    }
+
+#header {
+    position: fixed;
+    background-color: #3C4B40;
+    right: 0;
+    left: 0;
+    top: 0;
+    box-shadow: 0 1px 1px black;
+    border-bottom: black thin solid;
+    
+}
+
+.header-content {
+    border-style: groove;
+    border-color: #637167;
+    box-shadow: 0 0 2px black, -1px -1px 2px #637167;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5rem;
+    text-shadow: -0.5px 0 #FFF6E0, 1px 1px #637167;
+    font-weight: 550;
+    padding: 3px;
+    float: left;
+    margin: 3px;
+    
+}
+
+#email {
+    font-family: 'Open Sans', sans-serif;
+    /* text-shadow: -0.3px -0.3px #FFF6E0, 0.3px 0.3px #FFF6E0; */
+    font-size: 1.3rem;
+    float: right;
+    padding: 5px;
+    margin-right: 1%;
+    font-weight: 600;
+}
+
+.main {
+    background-color: 	#E6E6FA;
+    /* padding-left: 10px; */
+    color: #26201F;
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 1.3em;
+    max-width: 75%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    border: 5px groove #4C5536;
+}
+
+#main-header{
+    background-position: 100% 77%;
+    background-repeat: inherit;
+    background-size: 75%;
+    background-image: url(https://github.com/Warywise/g_santanna-Y/blob/3.3/bloco3/images/digital-5.png?raw=true), linear-gradient(#54463E, #FFF6E0);
+    border: groove #4C5536;
+    padding-left: 10px;
+
 }
 
 img.foto:hover {
@@ -26,27 +92,53 @@ img.foto:hover {
     position: absolute;
 }
 
-body {
-    background-image: url("../images/code-black-background-1366x768.jpg");
-    background-size: cover;
-    background-attachment: ;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    }
-
-    /*Imagem alternativa p/ BG=> "https://besthqwallpapers.com/Uploads/8-2-2020/120808/thumb2-circuit-board-texture-blue-neon-digital-texture-technology-background-digital-art.jpg" <|||> "https://images.unsplash.com/photo-1607677686474-ad91fc94f5ae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1528&q=80"*/
-
-.text {
-    background-color: 	#E6E6FA;
-    padding-left: 10px;
+h1 {
+    padding-top: 35px;
     color: #26201F;
-    font-family: 'Open Sans' , sans-serif;
+    text-shadow: -1px 1px #557860, 1px 1px black;
+    /* border-bottom: 3px groove #A49B83; */
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 200%;
+}
+
+h2 {
+    padding: 10px;
+    padding-top: 25px;
+    padding-left: 20px;
+    color: #4C5536;
+    text-shadow: 1.5px 1px #557860, -1.1px 1px black;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 150%;
+}
+
+.text-content {
+    padding-left: 5px;
+}
+#index-2{
+    margin-top: 15px;
+}
+
+#footer {
+    width: 100%;
+    background-color: #637167;
+    height: 100px;
+    border-top: groove #46584B;
+}
+
+.footer-content div {
+    margin: 0 5% 0 5%;
+    padding: 10px;
+    display: inline-block;
+}
+
+.footer-hover:hover {
+    text-decoration: underline;
     font-size: 1.3em;
-    max-width: 75%;
-    margin: auto;
-    margin-top: 5%;
-    border-radius: 3%;
-    border: 5px groove #A49B83;   
+    position: absolute;
+} .footer-hover:hover::before {
+    content: "→"; color: black; font-size: x-large;
 }
 
 .tag-list::before {
@@ -113,58 +205,6 @@ img.foto {
     border: double black;
 }
 
-h1 {
-    padding-top: 50px;
-    color: #4C5536;
-    text-shadow: -1px 1px 3px #557860, 1px 1px 1px black;
-    text-align: center;
-    border-bottom: 3px groove #A49B83;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    font-size: 230%;
-}
 
-h2 {
-    padding: 10px;
-    padding-top: 25px;
-    padding-left: 20px;
-    color: #4C5536;
-    text-shadow: -1px 1px 3px #557860, 1px 1px 1px black;
-    text-decoration: #54463E underline;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    font-size: 170%;
-}
 
-#sumary {
-    position: fixed;
-    background-color: #557860;
-    right: 0;
-    left: 0;
-    top: 0;
-    box-shadow: 0 1px 1px black;
-    border-bottom: black thin solid;
-    
-}
-
-.head-sumary {
-    
-    border-style: double;
-    border-color: black;
-    box-shadow: 0 0 2px black, -1px -1px 1px #4C5536;
-    font-size: 1.5rem;
-    font-weight: 550;
-    padding: 3px;
-    float: left;
-    margin: 3px;
-    
-}
-
-#email {
-    font-size: 1.5rem;
-    float: right;
-    padding: 5px;
-    margin-right: 1%;
-    font-weight: 700;
-}
 
