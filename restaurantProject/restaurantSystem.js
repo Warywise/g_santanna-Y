@@ -82,12 +82,22 @@ const clientValue = () => {
   clientAddInput.value = '';
   return value;
 }
-
 const addClientButton = () => addNewClient(clientValue());
 
 //
 ////
+function removeClient(clientName) {
+  const clientClass = ((clientName).replace(/\s/g, '')).toLowerCase();
+  const clientElements = document.querySelectorAll(`.${clientClass}`);
+  clientElements.forEach((cur) => cur.remove());
+}
+const clientSelectValue = () => clientsSelector.value;
+const clientRemoverButton = () => removeClient(clientSelectValue());
+
+//
+////
 window.onload = () => {
+  clientRemover.addEventListener('click', clientRemoverButton);
   clientAddButton.addEventListener('click', addClientButton);
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
