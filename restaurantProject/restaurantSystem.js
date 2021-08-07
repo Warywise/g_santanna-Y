@@ -14,17 +14,6 @@ const foodOptions = document.getElementById('food-options');
 
 const secondarySection = document.querySelector('.secondary-section');
 
-const foodValue = () => {
-  const value = foodAddInput.value;
-  foodAddInput.value = '';
-  return value;
-}
-const drinkValue = () => {
-  const value = drinkAddInput.value;
-  drinkAddInput.value = '';
-  return value;
-}
-
 const drinkMenuOptions = {
   'Agua': 2,
   'Coca Lata': 3.5,
@@ -47,7 +36,7 @@ function addMenuOptions(menuSelector, menuOptions) {
     const selector = document.createElement('option');
     selector.innerHTML = cur;
     selector.slot = prices[ind];
-      menuSelector.appendChild(selector);
+    menuSelector.appendChild(selector);
   });
 }
 
@@ -57,12 +46,49 @@ function addMenuOptionsButton(inputValue, selector, menu) {
   addMenuOptions(selector, menu);
 }
 
+const foodValue = () => {
+  const value = foodAddInput.value;
+  foodAddInput.value = '';
+  return value;
+}
+const drinkValue = () => {
+  const value = drinkAddInput.value;
+  drinkAddInput.value = '';
+  return value;
+}
 const drinkButtonEvent = () => addMenuOptionsButton(drinkValue, drinkOptions, drinkMenuOptions);
 const foodButtonEvent = () => addMenuOptionsButton(foodValue, foodOptions, foodMenuOptions);
 
 //
 ////
+function addNewClient(clientName) {
+  const clientClass = ((clientName).replace(/\s/g, '')).toLowerCase();
+  const clientOption = document.createElement('option');
+  clientOption.className = clientClass;
+  clientOption.innerHTML = clientName;
+  clientsSelector.appendChild(clientOption);
+  const div = document.createElement('div');
+  div.className = `client-divs ${clientClass}`
+  div.innerHTML = `<label class="client-check"><input type="checkbox">${clientName}</label>
+  <select id="${clientClass}-select" class="input-areas"></select>
+  <button>Remover Item</button>
+  <input id="${clientClass}-input" type="text" disabled>
+  <button>Faturar Comanda</button>`;
+  secondarySection.appendChild(div);
+}
+
+const clientValue = () => {
+  const value = clientAddInput.value;
+  clientAddInput.value = '';
+  return value;
+}
+
+const addClientButton = () => addNewClient(clientValue());
+
+//
+////
 window.onload = () => {
+  clientAddButton.addEventListener('click', addClientButton);
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
 
