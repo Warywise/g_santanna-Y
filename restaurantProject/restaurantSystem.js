@@ -62,7 +62,7 @@ const foodButtonEvent = () => addMenuOptionsButton(foodValue, foodOptions, foodM
 //
 ////
 function addNewClient(clientName) {
-  const clientClass = ((clientName).replace(/\s/g, '')).toLowerCase();
+  const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
   const clientOption = document.createElement('option');
   clientOption.className = clientClass;
   clientOption.innerHTML = clientName;
@@ -72,7 +72,7 @@ function addNewClient(clientName) {
   div.innerHTML = `<label class="client-check"><input type="checkbox">${clientName}</label>
   <select id="${clientClass}-select" class="input-areas"></select>
   <button>Remover Item</button>
-  <input id="${clientClass}-input" type="text" disabled>
+  <input id="${clientClass}-input" value="0" type="text" disabled>
   <button>Faturar Comanda</button>`;
   secondarySection.appendChild(div);
 }
@@ -87,7 +87,7 @@ const addClientButton = () => addNewClient(clientValue());
 //
 ////
 function removeClient(clientName) {
-  const clientClass = ((clientName).replace(/\s/g, '')).toLowerCase();
+  const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
   const clientElements = document.querySelectorAll(`.${clientClass}`);
   clientElements.forEach((cur) => cur.remove());
 }
@@ -96,11 +96,31 @@ const clientRemoverButton = () => removeClient(clientSelectValue());
 
 //
 ////
+function addClientRequest(optionsMenu) {
+  const newRequest = document.createElement('option');
+  const clientClass = clientSelectValue().replace(/\s/g, '').toLowerCase();
+  const clientResquests = document.getElementById(`${clientClass}-select`);
+  const clientExpenses = document.getElementById(`${clientClass}-input`);
+  const requestedItem = optionsMenu[optionsMenu.selectedIndex].value;
+  const requestedPrice = optionsMenu[optionsMenu.selectedIndex].slot;
+  newRequest.innerHTML = requestedItem;
+  newRequest.slot = requestedPrice;
+  clientExpenses.value = +(clientExpenses.value) + +(requestedPrice);
+  clientResquests.appendChild(newRequest);
+}
+
+const drinkClientRequestEvent = () => addClientRequest(drinkOptions);
+const foodClientRequestEvent = () => addClientRequest(foodOptions);
+
+//
+////
 window.onload = () => {
   clientRemover.addEventListener('click', clientRemoverButton);
   clientAddButton.addEventListener('click', addClientButton);
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
+  foodOptions.addEventListener('input', foodClientRequestEvent);
+  drinkOptions.addEventListener('input', drinkClientRequestEvent);
 
   addMenuOptions(drinkOptions, drinkMenuOptions);
   addMenuOptions(foodOptions, foodMenuOptions);
