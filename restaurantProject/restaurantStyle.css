@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: darkgray;
+}
+
+.main-section {
+  border-bottom: solid black;
+}
+
+#control-divs {
+  display: flex;
+  width: 100vw;
+  padding: 10px 0;
+  justify-content: space-around;
+  margin: 30px 0;
+  border-bottom: solid thin black;
+}
+
+.input-areas {
+  width: 200px;
+  padding: 5px;
+  margin: 1px;
+}
+
+#menu-divs {
+  display: flex;
+  width: 600px;
+  justify-content: space-around;
+  margin: 30px;
+}
+
+.client-divs {
+  max-width: 60vw;
+  margin: 10px 0;
+  padding: 10px;
+  border: groove;
+}
