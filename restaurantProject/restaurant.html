@@ -17,38 +17,44 @@
             <!-- <option id="umaId">Gustavo SantAnna</option>
             <option>Kezia da Costa</option> -->
           </select>
-          <button id="remove-client">Remover Cliente</button>
+          <button id="remove-client" class="buttons">Remover Cliente</button>
         </div>
         <div>
           <input type="text" class="input-areas" id="add-client-input">
-          <button id="add-client-button">Add Cliente</button>
+          <button id="add-client-button" class="buttons">Add Cliente</button>
         </div>
         <div>
           <input type="text" class="input-areas" id="add-food-input">
-          <button id="add-food-button">Add Comida</button>
+          <button id="add-food-button" class="buttons">Add Comida</button>
         </div>
         <div>
           <input type="text" class="input-areas" id="add-drink-input">
-          <button id="add-drink-button">Add Bebida</button>
+          <button id="add-drink-button" class="buttons">Add Bebida</button>
         </div>
       </div>
-      <div id="menu-divs">
-        <label>Bebidas
-          <select id="drink-options" class="option-menu input-areas">
-            <!-- <option id="agua" slot="2">Agua</option>
-            <option>Coca lata</option>
-            <option>Guaravita</option>
-            <option>Todynho</option> -->
-          </select>
-        </label>
-        <label>Comidas
-          <select id="food-options" class="option-menu input-areas">
-            <!-- <option>Pastel</option>
-            <option>Coxinha</option>
-            <option>Joelho</option>
-            <option>Croissant</option> -->
-          </select>
-        </label>
+      <div id="menu-div">
+        <div>
+          <label>Bebidas ⇀
+            <select id="drink-options" class="option-menu input-areas">
+              <!-- <option id="agua" slot="2">Agua</option>
+              <option>Coca lata</option>
+              <option>Guaravita</option>
+              <option>Todynho</option> -->
+            </select>
+          </label>
+          <button id="take-drink-order" class="take-order buttons">✍ Anotar Pedido</button>
+        </div>
+        <div>
+          <label>Comidas ⇁
+            <select id="food-options" class="option-menu input-areas">
+              <!-- <option>Pastel</option>
+              <option>Coxinha</option>
+              <option>Joelho</option>
+              <option>Croissant</option> -->
+            </select>
+          </label>
+          <button id="take-food-order" class="take-order buttons">✍ Anotar Pedido</button>
+        </div>
       </div>
     </section>
     <section class="secondary-section">

@@ -11,6 +11,8 @@ const foodAddButton = document.getElementById('add-food-button');
 const optionsMenu = document.getElementById('menu-divs');
 const drinkOptions = document.getElementById('drink-options');
 const foodOptions = document.getElementById('food-options');
+const drinkOrder = document.getElementById('take-drink-order');
+const foodOrder = document.getElementById('take-food-order');
 
 const secondarySection = document.querySelector('.secondary-section');
 
@@ -81,9 +83,9 @@ function addNewClient(clientName) {
   div.className = `client-divs ${clientClass}`
   div.innerHTML = `<label class="client-check"><input type="checkbox">${clientName}</label>
   <select id="${clientClass}-select" class="input-areas"></select>
-  <button class="client-buttons">Remover Item</button>
+  <button class="client-buttons buttons">Remover Item</button>
   <input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
-  <button class="client-buttons">Faturar Comanda</button>`;
+  <button class="client-buttons buttons">Faturar Comanda</button>`;
   secondarySection.appendChild(div);
   const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
   const removerItemEvent = () => requestRemover(clientClass);
@@ -132,8 +134,8 @@ window.onload = () => {
   clientAddButton.addEventListener('click', addClientButton);
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
-  foodOptions.addEventListener('input', foodClientRequestEvent);
-  drinkOptions.addEventListener('input', drinkClientRequestEvent);
+  drinkOrder.addEventListener('click', drinkClientRequestEvent);
+  foodOrder.addEventListener('click', foodClientRequestEvent);
 
   addMenuOptions(drinkOptions, drinkMenuOptions);
   addMenuOptions(foodOptions, foodMenuOptions);

@@ -8,8 +8,28 @@ body {
   background-color: darkgray;
 }
 
+label {
+  font-size: 1.2rem;
+}
+
+select:focus {
+  outline: none;
+}
+
 .main-section {
   border-bottom: solid black;
+}
+
+.input-areas {
+  width: 200px;
+  padding: 5px;
+  margin: 1px;
+  font-weight: 600;
+}
+
+.buttons {
+  padding: 3px;
+  font-weight: 600;
 }
 
 #control-divs {
@@ -21,24 +41,24 @@ body {
   border-bottom: solid thin black;
 }
 
-.input-areas {
-  width: 200px;
-  padding: 5px;
-  margin: 1px;
+#menu-div {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: flex-end;
+  margin: 20px;
 }
 
-#menu-divs {
-  display: flex;
-  width: 600px;
-  justify-content: space-around;
-  margin: 30px;
+#menu-div div {
+  margin: 3px;
 }
 
 .client-divs {
   max-width: 60vw;
-  margin: 10px 0;
-  padding: 10px;
-  border: groove;
+  margin: 25px 5px;
+  padding: 15px;
+  border: groove grey;
+  background-color: grey;
 }
 
 /* .client-check {
@@ -50,8 +70,4 @@ body {
   padding: 3px;
   margin-left: 15px;
   color: black;
-}
-
-.client-buttons {
-  padding: 3px;
 }
