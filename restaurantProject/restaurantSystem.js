@@ -61,6 +61,16 @@ const foodButtonEvent = () => addMenuOptionsButton(foodValue, foodOptions, foodM
 
 //
 ////
+function requestRemover(clientClass) {
+  const clientResquests = document.getElementById(`${clientClass}-select`);
+  const clientExpenses = document.getElementById(`${clientClass}-input`);
+  const itemPrice = clientResquests[clientResquests.selectedIndex].slot;
+  clientExpenses.value = +(clientExpenses.value) - +(itemPrice);
+  clientResquests[clientResquests.selectedIndex].remove();
+}
+
+//
+////
 function addNewClient(clientName) {
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
   const clientOption = document.createElement('option');
@@ -71,10 +81,13 @@ function addNewClient(clientName) {
   div.className = `client-divs ${clientClass}`
   div.innerHTML = `<label class="client-check"><input type="checkbox">${clientName}</label>
   <select id="${clientClass}-select" class="input-areas"></select>
-  <button>Remover Item</button>
-  <input id="${clientClass}-input" value="0" type="text" disabled>
-  <button>Faturar Comanda</button>`;
+  <button class="client-buttons">Remover Item</button>
+  <input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
+  <button class="client-buttons">Faturar Comanda</button>`;
   secondarySection.appendChild(div);
+  const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
+  const removerItemEvent = () => requestRemover(clientClass);
+  itemRemover.addEventListener('click', removerItemEvent);
 }
 
 const clientValue = () => {

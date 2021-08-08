@@ -44,3 +44,14 @@ body {
 /* .client-check {
   max-width: 10%;
 } */
+
+.client-expenses {
+  width: 50px;
+  padding: 3px;
+  margin-left: 15px;
+  color: black;
+}
+
+.client-buttons {
+  padding: 3px;
+}
