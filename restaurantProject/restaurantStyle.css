@@ -96,8 +96,8 @@ main {
   font-size: 1.2rem;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 600;
-  padding: 10px;
-  margin: 15px;
+  padding: 5px;
+  margin: 10px 5px;
   border: solid thin tan;
   border-radius: 5%;
   width: fit-content;

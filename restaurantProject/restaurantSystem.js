@@ -97,11 +97,14 @@ function addNewClient(clientName) {
   <select id="${clientClass}-select" class="input-areas"></select>
   <button class="client-buttons buttons">Remover Item</button>
   <input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
-  <button class="client-buttons buttons">Faturar Comanda</button>`;
+  <button id="${clientClass}-bill-balance" class="client-buttons buttons">Faturar Comanda</button>`;
   secondarySection.appendChild(div);
   const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
   const removerItemEvent = () => requestRemover(clientClass);
   itemRemover.addEventListener('click', removerItemEvent);
+  const billBalanceButton = document.getElementById(`${clientClass}-bill-balance`);
+  const billBalanceEvent = () => getBillsBalance(clientClass);
+  billBalanceButton.addEventListener('click', billBalanceEvent);
 }
 
 const clientValue = () => {
@@ -141,6 +144,16 @@ const foodClientRequestEvent = () => addClientRequest(foodOptions);
 
 //
 ////
+function getBillsBalance(clientClass) {
+  const clientExpenseValue = document.getElementById(`${clientClass}-input`).value;
+  const result = +(positiveCounter.slot) + +(clientExpenseValue);
+  positiveCounter.slot = result;
+  positiveCounter.innerText = `R$${result.toFixed(2)}`
+  removeClient(clientClass);
+}
+
+//
+////
 function fillAsideMenu(menuOption, menuSector) {
   const itens = Object.keys(menuOption);
   const prices = Object.values(menuOption);
@@ -175,3 +188,7 @@ window.onload = () => {
   addMenuOptions(drinkOptions, drinkMenuOptions);
   addMenuOptions(foodOptions, foodMenuOptions);
 }
+
+
+
+// https://www.devmedia.com.br/desenhando-com-o-mouse-na-canvas-da-html5/27619 
