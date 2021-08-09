@@ -16,13 +16,19 @@ const foodOrder = document.getElementById('take-food-order');
 
 const secondarySection = document.querySelector('.secondary-section');
 
+const asideSection = document.querySelector('.aside.section');
+const negativeCounter = document.getElementById('negative-count');
+const positiveCounter = document.getElementById('positive-count');
+const drinkSectorMenu = document.getElementById('drink-section-menu');
+const foodSectorMenu = document.getElementById('food-section-menu');
+
 const drinkMenuOptions = {
   'Agua': 2,
   'Coca Lata': 3.5,
   'Guaravita': 1.5,
   'Todynho': 3,
 }
-
+const currentDrinkMenu = () => drinkMenuOptions;
 const foodMenuOptions = {
   'Coxinha': 2,
   'Pastel': 3,
@@ -44,7 +50,7 @@ function addMenuOptions(menuSelector, menuOptions) {
 
 function addMenuOptionsButton(inputValue, selector, menu) {
   const newOption = (inputValue()).split('=');
-  menu[newOption[0]] = newOption[1];
+  menu[newOption[0]] = +(newOption[1]);
   addMenuOptions(selector, menu);
 }
 
@@ -58,8 +64,14 @@ const drinkValue = () => {
   drinkAddInput.value = '';
   return value;
 }
-const drinkButtonEvent = () => addMenuOptionsButton(drinkValue, drinkOptions, drinkMenuOptions);
-const foodButtonEvent = () => addMenuOptionsButton(foodValue, foodOptions, foodMenuOptions);
+const drinkButtonEvent = () => {
+  addMenuOptionsButton(drinkValue, drinkOptions, drinkMenuOptions);
+  asideDrinkMenu();
+};
+const foodButtonEvent = () => {
+  addMenuOptionsButton(foodValue, foodOptions, foodMenuOptions);
+  asideFoodMenu();
+}
 
 //
 ////
@@ -129,6 +141,27 @@ const foodClientRequestEvent = () => addClientRequest(foodOptions);
 
 //
 ////
+function fillAsideMenu(menuOption, menuSector) {
+  const itens = Object.keys(menuOption);
+  const prices = Object.values(menuOption);
+  itens.forEach((item, ind) => {
+    const line = document.createElement('p');
+    line.innerHTML = `➢ ${item}: R$${(prices[ind]).toFixed(2)}`
+    menuSector.appendChild(line);
+  });
+}
+
+const asideDrinkMenu = () => {
+  drinkSectorMenu.innerHTML = '<div>Bebidas ↙</div><br>'
+  fillAsideMenu(drinkMenuOptions, drinkSectorMenu);
+}
+const asideFoodMenu = () => {
+  foodSectorMenu.innerHTML = '<div>↘ Comestíveis</div><br>'
+  fillAsideMenu(foodMenuOptions, foodSectorMenu);
+}
+
+//
+////
 window.onload = () => {
   clientRemover.addEventListener('click', clientRemoverButton);
   clientAddButton.addEventListener('click', addClientButton);
@@ -137,6 +170,8 @@ window.onload = () => {
   drinkOrder.addEventListener('click', drinkClientRequestEvent);
   foodOrder.addEventListener('click', foodClientRequestEvent);
 
+  asideDrinkMenu();
+  asideFoodMenu();
   addMenuOptions(drinkOptions, drinkMenuOptions);
   addMenuOptions(foodOptions, foodMenuOptions);
 }

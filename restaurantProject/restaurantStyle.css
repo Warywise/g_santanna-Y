@@ -123,8 +123,13 @@ main {
 }
 
 .menu-sections {
-  display: inline-block;
+  display: inline-table;
   padding: 5px;
   margin: 5px;
   border: solid thin tan;
+}
+
+.menu-sections p {
+  text-align: start;
+  padding: 1px;
 }
