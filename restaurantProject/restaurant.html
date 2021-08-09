@@ -14,21 +14,19 @@
       <div id="control-divs">
         <div>
           <select class="input-areas" id="current-clients">
-            <!-- <option id="umaId">Gustavo SantAnna</option>
-            <option>Kezia da Costa</option> -->
           </select>
           <button id="remove-client" class="buttons">Remover Cliente</button>
         </div>
         <div>
-          <input type="text" class="input-areas" id="add-client-input">
+          <input type="text" placeholder="Nome do Cliente" class="input-areas" id="add-client-input">
           <button id="add-client-button" class="buttons">Add Cliente</button>
         </div>
         <div>
-          <input type="text" class="input-areas" id="add-food-input">
+          <input type="text" placeholder="'Item=Preço'" class="input-areas" id="add-food-input">
           <button id="add-food-button" class="buttons">Add Comida</button>
         </div>
         <div>
-          <input type="text" class="input-areas" id="add-drink-input">
+          <input type="text" placeholder="'Bebida=Preço'" class="input-areas" id="add-drink-input">
           <button id="add-drink-button" class="buttons">Add Bebida</button>
         </div>
       </div>
@@ -36,10 +34,6 @@
         <div>
           <label>Bebidas ⇀
             <select id="drink-options" class="option-menu input-areas">
-              <!-- <option id="agua" slot="2">Agua</option>
-              <option>Coca lata</option>
-              <option>Guaravita</option>
-              <option>Todynho</option> -->
             </select>
           </label>
           <button id="take-drink-order" class="take-order buttons">✍ Anotar Pedido</button>
@@ -47,32 +41,39 @@
         <div>
           <label>Comidas ⇁
             <select id="food-options" class="option-menu input-areas">
-              <!-- <option>Pastel</option>
-              <option>Coxinha</option>
-              <option>Joelho</option>
-              <option>Croissant</option> -->
             </select>
           </label>
           <button id="take-food-order" class="take-order buttons">✍ Anotar Pedido</button>
         </div>
       </div>
     </section>
-    <section class="secondary-section">
-      <!-- <div class="client-divs">
-        <label class="client-check"><input type="checkbox">Gustavo SantAnna</label>
-        <select id="gustavosantanna-select" class="input-areas"></select>
-        <button>Remover Item</button>
-        <input type="text" disabled>
-        <button>Faturar Comanda</button>
-      </div>
-      <div class="client-divs" id="keziadacosta">
-        <label class="client-check"><input type="checkbox">Kezia da Costa</label>
-        <select id="keziadacosta-select" class="input-areas"></select>
-        <button>Remover Item</button>
-        <input type="text" disabled>
-        <button>Faturar Comanda</button>
-      </div> -->
-    </section>
+    <div class="contents">
+      <section class="secondary-section">
+      </section>
+      <section class="aside-section">
+        <div>
+          <p>- <b class="icon">✎</b> Faturamentos -</p>
+          <div class="count-bills">
+            <p>↶ Negativos</p>
+            <div id="negative-count">0</div>
+          </div>
+          <div class="count-bills">
+            <p>↶ Positivos</p>
+            <div id="positive-count">0</div>
+          </div>
+        </div>
+        <hr>
+        <article id="menu-article">
+          <p>☟ Cardápio do Dia!</p>
+          <div class="menu-sections" id="food-section-menu">
+            <p>↘ Comestíveis</p>
+          </div>
+          <div class="menu-sections" id="drink-section-menu">
+            <p>Bebidas ↙</p>
+          </div>
+        </article>
+      </section>
+    </div>
   </main>
 </body>
 </html>

@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: inherit;
+}
+
+*:focus {
+
+}
+
 body {
   background-color: darkgray;
 }
@@ -16,6 +24,11 @@ select:focus {
   outline: none;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 .main-section {
   border-bottom: solid black;
 }
@@ -25,6 +38,7 @@ select:focus {
   padding: 5px;
   margin: 1px;
   font-weight: 600;
+  border-radius: 5%;
 }
 
 .buttons {
@@ -53,12 +67,17 @@ select:focus {
   margin: 3px;
 }
 
+.contents {
+  display: flex;
+  justify-content: space-between;
+}
+
 .client-divs {
   max-width: 60vw;
   margin: 25px 5px;
   padding: 15px;
   border: groove grey;
-  background-color: grey;
+  background-color: rgba(133, 133, 133, 0.8);
 }
 
 /* .client-check {
@@ -70,4 +89,42 @@ select:focus {
   padding: 3px;
   margin-left: 15px;
   color: black;
+}
+
+.aside-section {
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  padding: 10px;
+  margin: 15px;
+  border: solid thin tan;
+  border-radius: 5%;
+  width: fit-content;
+  background-color: seashell;
+  align-self: flex-start;
+}
+
+.icon {
+  font-size: 2rem;
+  color: rgb(88, 40, 6);
+}
+
+.count-bills {
+  display: inline-block;
+  padding: 5px;
+  margin: 10px;
+  border: solid thin tan;
+}
+
+.count-bills div {
+  border: solid thin lightgrey;
+  text-align: start;
+}
+
+.menu-sections {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  border: solid thin tan;
 }
