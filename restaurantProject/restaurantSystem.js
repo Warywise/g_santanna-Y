@@ -14,9 +14,12 @@ const foodOptions = document.getElementById('food-options');
 const drinkOrder = document.getElementById('take-drink-order');
 const foodOrder = document.getElementById('take-food-order');
 
+const asideRevealButton = document.getElementById('reveal-aside-section');
+let hideAside = true;
+
 const secondarySection = document.querySelector('.secondary-section');
 
-const asideSection = document.querySelector('.aside.section');
+const asideSection = document.querySelector('.aside-section');
 const negativeCounter = document.getElementById('negative-count');
 const positiveCounter = document.getElementById('positive-count');
 const drinkSectorMenu = document.getElementById('drink-section-menu');
@@ -71,6 +74,17 @@ const drinkButtonEvent = () => {
 const foodButtonEvent = () => {
   addMenuOptionsButton(foodValue, foodOptions, foodMenuOptions);
   asideFoodMenu();
+}
+//
+////
+function changeAsideDisplay() {
+  if (hideAside) {
+    asideSection.style.margin = '10px';
+    hideAside = false;
+  } else {
+    asideSection.style.margin = '10px -40%';
+    hideAside = true;
+  }
 }
 
 //
@@ -182,6 +196,7 @@ window.onload = () => {
   foodAddButton.addEventListener('click', foodButtonEvent);
   drinkOrder.addEventListener('click', drinkClientRequestEvent);
   foodOrder.addEventListener('click', foodClientRequestEvent);
+  asideRevealButton.addEventListener('click', changeAsideDisplay);
 
   asideDrinkMenu();
   asideFoodMenu();

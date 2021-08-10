@@ -8,8 +8,11 @@
   background-color: inherit;
 }
 
-*:focus {
-
+#reveal-aside-section:hover {
+  background-color: rgba(255, 237, 224, 0.8);
+}
+#reveal-aside-section:active {
+  opacity: 0.9;
 }
 
 body {
@@ -31,6 +34,7 @@ main {
 
 .main-section {
   border-bottom: solid black;
+  position: relative;
 }
 
 .input-areas {
@@ -67,6 +71,26 @@ main {
   margin: 3px;
 }
 
+#reveal-aside-section {
+  position: absolute;
+  right: 1vw;
+  bottom: 5%;
+  font-size: large;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  line-height: 1.7rem;
+  padding: 10px 10px 5px 10px;
+  background-color: seashell;
+  border: solid tan;
+  border-radius: 10%;
+  transition: 1s background;
+}
+
+#reveal-arrow {
+  font-size: 3.5rem;
+  font-weight: 100;
+}
+
 .contents {
   display: flex;
   justify-content: space-between;
@@ -80,10 +104,6 @@ main {
   background-color: rgba(133, 133, 133, 0.8);
 }
 
-/* .client-check {
-  max-width: 10%;
-} */
-
 .client-expenses {
   width: 50px;
   padding: 3px;
@@ -92,15 +112,17 @@ main {
 }
 
 .aside-section {
+  position: absolute;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 600;
   padding: 5px;
-  margin: 10px 5px;
+  right: 5px;
+  margin: 10px -35%;
+  transition: 0.5s margin;
   border: solid thin tan;
   border-radius: 5%;
-  width: fit-content;
   background-color: seashell;
   align-self: flex-start;
 }
