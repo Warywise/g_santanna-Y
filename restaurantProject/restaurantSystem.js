@@ -79,10 +79,10 @@ const foodButtonEvent = () => {
 ////
 function changeAsideDisplay() {
   if (hideAside) {
-    asideSection.style.margin = '10px';
+    asideSection.style.opacity = '1';
     hideAside = false;
   } else {
-    asideSection.style.margin = '10px -40%';
+    asideSection.style.opacity = '0';
     hideAside = true;
   }
 }
@@ -90,32 +90,49 @@ function changeAsideDisplay() {
 //
 ////
 function requestRemover(clientClass) {
+  const negativeCheck = document.getElementById(`${clientClass}-negative-check`);
+  const negativePercent = 100 - (document.getElementById(`${clientClass}-negative-input`).value);
   const clientResquests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
   const itemPrice = clientResquests[clientResquests.selectedIndex].slot;
+  if (negativeCheck.checked) {
+    const result = +(negativeCounter.slot) + +(itemPrice) * +(`0.${negativePercent}`);
+    negativeCounter.slot = result;
+    negativeCounter.innerText = `R$${result.toFixed(2)}`
+    negativeCheck.checked = false;
+  }
   clientExpenses.value = +(clientExpenses.value) - +(itemPrice);
   clientResquests[clientResquests.selectedIndex].remove();
 }
 
 //
 ////
+const clientArea = (clientName, clientClass) =>
+`<label><input type="checkbox" class="client-checks">${clientName}</label>
+<div><input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
+<button id="${clientClass}-bill-balance" class="client-buttons buttons">Faturar Comanda</button></div>
+<div><select id="${clientClass}-select" class="input-areas"></select>
+<button class="client-buttons buttons">Remover Item</button></div>
+<div>Negativar ↦ <input type="text" value="35" id="${clientClass}-negative-input" class="negativate-input" disabled>%
+<input type="checkbox" id="${clientClass}-negative-check" class="client-checks"></div>`;
+
 function addNewClient(clientName) {
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
+//
   const clientOption = document.createElement('option');
   clientOption.className = clientClass;
   clientOption.innerHTML = clientName;
   clientsSelector.appendChild(clientOption);
+//
   const div = document.createElement('div');
   div.className = `client-divs ${clientClass}`
-  div.innerHTML = `<label class="client-check"><input type="checkbox">${clientName}</label>
-  <select id="${clientClass}-select" class="input-areas"></select>
-  <button class="client-buttons buttons">Remover Item</button>
-  <input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
-  <button id="${clientClass}-bill-balance" class="client-buttons buttons">Faturar Comanda</button>`;
+  div.innerHTML = clientArea(clientName, clientClass);
   secondarySection.appendChild(div);
+//
   const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
   const removerItemEvent = () => requestRemover(clientClass);
   itemRemover.addEventListener('click', removerItemEvent);
+//
   const billBalanceButton = document.getElementById(`${clientClass}-bill-balance`);
   const billBalanceEvent = () => getBillsBalance(clientClass);
   billBalanceButton.addEventListener('click', billBalanceEvent);
@@ -149,7 +166,7 @@ function addClientRequest(optionsMenu) {
   const requestedPrice = optionsMenu[optionsMenu.selectedIndex].slot;
   newRequest.innerHTML = requestedItem;
   newRequest.slot = requestedPrice;
-  clientExpenses.value = +(clientExpenses.value) + +(requestedPrice);
+  clientExpenses.value = (+(clientExpenses.value) + +(requestedPrice)).toFixed(2);
   clientResquests.appendChild(newRequest);
 }
 
