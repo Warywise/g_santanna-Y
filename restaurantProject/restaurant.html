@@ -31,19 +31,26 @@
         </div>
       </div>
       <div id="menu-div">
+        <p>Fulano de Tal</p>
         <div>
-          <label>Bebidas ⇀
-            <select id="drink-options" class="option-menu input-areas">
-            </select>
-          </label>
-          <button id="take-drink-order" class="take-order buttons">✍ Anotar Pedido</button>
+          <div class="option-menu">
+            <label>Bebidas ⇀
+              <select id="drink-options" class="input-areas">
+              </select>
+            </label>
+            <button id="take-drink-order" class="take-order buttons">✍ Anotar Pedido</button>
+          </div>
+          <div class="option-menu">
+            <label>Comidas ⇁
+              <select id="food-options" class="input-areas">
+              </select>
+            </label>
+            <button id="take-food-order" class="take-order buttons">✍ Anotar Pedido</button>
+          </div>
         </div>
-        <div>
-          <label>Comidas ⇁
-            <select id="food-options" class="option-menu input-areas">
-            </select>
-          </label>
-          <button id="take-food-order" class="take-order buttons">✍ Anotar Pedido</button>
+        <div id="menu-option-remover">
+          <input type="text" placeholder="Nome do Item" id="option-remover-input" class="input-areas">
+          <button id="option-remover-button" class="buttons">Apagar do Cardápio</button>
         </div>
         <button id="reveal-aside-section">Detalhes<br> <b id="reveal-arrow">➯</b></button>
       </div>

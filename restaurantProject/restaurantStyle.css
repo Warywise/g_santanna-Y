@@ -66,14 +66,21 @@ main {
 
 #menu-div {
   display: flex;
-  flex-direction: column;
-  width: 500px;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 900px;
   margin: 20px;
 }
 
+.option-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 350px;
+}
+
 #menu-div div {
-  margin: 3px;
+  margin: 10px;
 }
 
 #reveal-aside-section {

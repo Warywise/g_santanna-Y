@@ -13,6 +13,8 @@ const drinkOptions = document.getElementById('drink-options');
 const foodOptions = document.getElementById('food-options');
 const drinkOrder = document.getElementById('take-drink-order');
 const foodOrder = document.getElementById('take-food-order');
+const optionRemoverInput = document.getElementById('option-remover-input');
+const optionRemoverButton = document.getElementById('option-remover-button');
 
 const asideRevealButton = document.getElementById('reveal-aside-section');
 let hideAside = true;
@@ -31,7 +33,7 @@ const drinkMenuOptions = {
   'Guaravita': 1.5,
   'Todynho': 3,
 }
-const currentDrinkMenu = () => drinkMenuOptions;
+
 const foodMenuOptions = {
   'Coxinha': 2,
   'Pastel': 3,
@@ -39,6 +41,8 @@ const foodMenuOptions = {
   'Croissant': 3.5,
 }
 
+// Funções responsáveis pela adição de itens ao 'Select' de opções do cardápio
+////
 function addMenuOptions(menuSelector, menuOptions) {
   menuSelector.innerHTML = '';
   const itens = Object.keys(menuOptions);
@@ -57,25 +61,39 @@ function addMenuOptionsButton(inputValue, selector, menu) {
   addMenuOptions(selector, menu);
 }
 
-const foodValue = () => {
+const foodInputValue = () => {
   const value = foodAddInput.value;
   foodAddInput.value = '';
   return value;
 }
-const drinkValue = () => {
+const drinkInputValue = () => {
   const value = drinkAddInput.value;
   drinkAddInput.value = '';
   return value;
 }
 const drinkButtonEvent = () => {
-  addMenuOptionsButton(drinkValue, drinkOptions, drinkMenuOptions);
+  addMenuOptionsButton(drinkInputValue, drinkOptions, drinkMenuOptions);
   asideDrinkMenu();
 };
 const foodButtonEvent = () => {
-  addMenuOptionsButton(foodValue, foodOptions, foodMenuOptions);
+  addMenuOptionsButton(foodInputValue, foodOptions, foodMenuOptions);
   asideFoodMenu();
 }
+
 //
+////
+function optionMenuRemover() {
+  const itemToRemove = optionRemoverInput.value;
+  if (drinkMenuOptions[itemToRemove]) delete drinkMenuOptions[itemToRemove];
+  if (foodMenuOptions[itemToRemove]) delete foodMenuOptions[itemToRemove];
+  optionRemoverInput.value = '';
+  asideDrinkMenu();
+  asideFoodMenu();
+  addMenuOptions(drinkOptions, drinkMenuOptions);
+  addMenuOptions(foodOptions, foodMenuOptions);
+}
+
+// Revelar e esconder setor lateral de faturamentos e cardápio
 ////
 function changeAsideDisplay() {
   if (hideAside) {
@@ -87,7 +105,7 @@ function changeAsideDisplay() {
   }
 }
 
-//
+// Remover item de comanda do cliente
 ////
 function requestRemover(clientClass) {
   const negativeCheck = document.getElementById(`${clientClass}-negative-check`);
@@ -105,7 +123,7 @@ function requestRemover(clientClass) {
   clientResquests[clientResquests.selectedIndex].remove();
 }
 
-//
+// Criar comanda de cliente e adiciona-la à pagina
 ////
 const clientArea = (clientName, clientClass) =>
 `<label><input type="checkbox" class="client-checks">${clientName}</label>
@@ -118,21 +136,21 @@ const clientArea = (clientName, clientClass) =>
 
 function addNewClient(clientName) {
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
-//
+
   const clientOption = document.createElement('option');
   clientOption.className = clientClass;
   clientOption.innerHTML = clientName;
   clientsSelector.appendChild(clientOption);
-//
+
   const div = document.createElement('div');
   div.className = `client-divs ${clientClass}`
   div.innerHTML = clientArea(clientName, clientClass);
   secondarySection.appendChild(div);
-//
+
   const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
   const removerItemEvent = () => requestRemover(clientClass);
   itemRemover.addEventListener('click', removerItemEvent);
-//
+
   const billBalanceButton = document.getElementById(`${clientClass}-bill-balance`);
   const billBalanceEvent = () => getBillsBalance(clientClass);
   billBalanceButton.addEventListener('click', billBalanceEvent);
@@ -145,7 +163,7 @@ const clientValue = () => {
 }
 const addClientButton = () => addNewClient(clientValue());
 
-//
+// Remover cliente e apagar comanda
 ////
 function removeClient(clientName) {
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
@@ -155,7 +173,7 @@ function removeClient(clientName) {
 const clientSelectValue = () => clientsSelector.value;
 const clientRemoverButton = () => removeClient(clientSelectValue());
 
-//
+// Adicionar pedido de cliente à sua comanda
 ////
 function addClientRequest(optionsMenu) {
   const newRequest = document.createElement('option');
@@ -173,7 +191,7 @@ function addClientRequest(optionsMenu) {
 const drinkClientRequestEvent = () => addClientRequest(drinkOptions);
 const foodClientRequestEvent = () => addClientRequest(foodOptions);
 
-//
+// Faturar comanda de cliente e registrar valor gasto
 ////
 function getBillsBalance(clientClass) {
   const clientExpenseValue = document.getElementById(`${clientClass}-input`).value;
@@ -183,7 +201,7 @@ function getBillsBalance(clientClass) {
   removeClient(clientClass);
 }
 
-//
+// Preencher cardápio de setor lateral
 ////
 function fillAsideMenu(menuOption, menuSector) {
   const itens = Object.keys(menuOption);
@@ -211,6 +229,7 @@ window.onload = () => {
   clientAddButton.addEventListener('click', addClientButton);
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
+  optionRemoverButton.addEventListener('click', optionMenuRemover);
   drinkOrder.addEventListener('click', drinkClientRequestEvent);
   foodOrder.addEventListener('click', foodClientRequestEvent);
   asideRevealButton.addEventListener('click', changeAsideDisplay);
@@ -220,7 +239,5 @@ window.onload = () => {
   addMenuOptions(drinkOptions, drinkMenuOptions);
   addMenuOptions(foodOptions, foodMenuOptions);
 }
-
-
 
 // https://www.devmedia.com.br/desenhando-com-o-mouse-na-canvas-da-html5/27619 
