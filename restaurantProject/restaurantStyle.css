@@ -137,6 +137,13 @@ main {
   color: black;
 }
 
+.client-counter {
+  width: 30px;
+  padding: 3px;
+  /* margin-left: 5px; */
+  color: black;
+}
+
 .aside-section {
   opacity: 0;
   position: absolute !important;

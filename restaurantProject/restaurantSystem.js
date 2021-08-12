@@ -32,14 +32,16 @@ const drinkMenuOptions = {
   'Coca Lata': 3.5,
   'Guaravita': 1.5,
   'Todynho': 3,
-}
+};
 
 const foodMenuOptions = {
   'Coxinha': 2,
   'Pastel': 3,
   'Joelho': 2.5,
   'Croissant': 3.5,
-}
+};
+
+const clientsObject = {};
 
 // Funções responsáveis pela adição de itens ao 'Select' de opções do cardápio
 ////
@@ -82,7 +84,7 @@ const foodButtonEvent = () => {
   asideFoodMenu();
 }
 
-//
+// Remover itens das opções do cardápio
 ////
 function optionMenuRemover() {
   const itemToRemove = optionRemoverInput.value;
@@ -112,9 +114,9 @@ function changeAsideDisplay() {
 function requestRemover(clientClass) {
   const negativeCheck = document.getElementById(`${clientClass}-negative-check`);
   const negativePercent = 100 - (document.getElementById(`${clientClass}-negative-input`).value);
-  const clientResquests = document.getElementById(`${clientClass}-select`);
+  const clientRequests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
-  const itemPrice = clientResquests[clientResquests.selectedIndex].slot;
+  const itemPrice = clientRequests[clientRequests.selectedIndex].slot;
   if (negativeCheck.checked) {
     const result = +(negativeCounter.slot) + +(itemPrice) * +(`0.${negativePercent}`);
     negativeCounter.slot = result;
@@ -122,7 +124,7 @@ function requestRemover(clientClass) {
     negativeCheck.checked = false;
   }
   clientExpenses.value = +(clientExpenses.value) - +(itemPrice);
-  clientResquests[clientResquests.selectedIndex].remove();
+  clientRequests[clientRequests.selectedIndex].remove();
 }
 
 // Criar comanda de cliente e adiciona-la à pagina
@@ -132,12 +134,14 @@ const clientArea = (clientName, clientClass) =>
 <div><input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
 <button id="${clientClass}-bill-balance" class="client-buttons buttons">Faturar Comanda</button></div>
 <div><select id="${clientClass}-select" class="input-areas"></select>
+<input class="client-counter" id="${clientClass}-counter" value="0 x" type="text" disabled>
 <button class="client-buttons buttons">Remover Item</button></div>
 <div>Negativar ↦ <input type="text" value="35" id="${clientClass}-negative-input" class="negativate-input" disabled>%
 <input type="checkbox" id="${clientClass}-negative-check" class="client-checks"></div>`;
 
 function addNewClient(clientName) {
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
+  clientsObject[clientClass] = {};
 
   const clientOption = document.createElement('option');
   clientOption.className = clientClass;
@@ -148,6 +152,10 @@ function addNewClient(clientName) {
   div.className = `client-divs ${clientClass}`
   div.innerHTML = clientArea(clientName, clientClass);
   secondarySection.appendChild(div);
+
+  const clientRequests = document.getElementById(`${clientClass}-select`);
+  const clientCounter = () => requestedItensCounter(clientClass);
+  clientRequests.addEventListener('click', clientCounter);
 
   const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
   const removerItemEvent = () => requestRemover(clientClass);
@@ -169,6 +177,7 @@ const addClientButton = () => addNewClient(clientValue());
 ////
 function removeClient(clientName) {
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
+  delete clientsObject[clientClass];
   const clientElements = document.querySelectorAll(`.${clientClass}`);
   clientElements.forEach((cur) => cur.remove());
 }
@@ -178,20 +187,37 @@ const clientRemoverButton = () => removeClient(clientSelectValue());
 // Adicionar pedido de cliente à sua comanda
 ////
 function addClientRequest(optionsMenu) {
-  const newRequest = document.createElement('option');
   const clientClass = clientSelectValue().replace(/\s/g, '').toLowerCase();
-  const clientResquests = document.getElementById(`${clientClass}-select`);
+  const clientKey = clientsObject[clientClass];
+  const clientRequests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
   const requestedItem = optionsMenu[optionsMenu.selectedIndex].value;
   const requestedPrice = optionsMenu[optionsMenu.selectedIndex].slot;
-  newRequest.innerHTML = requestedItem;
-  newRequest.slot = requestedPrice;
+  if (!clientKey[requestedItem]) {
+    clientKey[requestedItem] = true;
+    const newRequest = document.createElement('option');
+    newRequest.innerHTML = requestedItem;
+    newRequest.slot = 1;
+    clientRequests.appendChild(newRequest);
+  } else {
+    const allRequests = document.querySelectorAll(`#${clientClass}-select option`);
+    const thisRequest = Array.from(allRequests).filter((item) => item.innerHTML === requestedItem);
+    thisRequest[0].slot = +(thisRequest[0].slot) + 1;
+  }
+  requestedItensCounter(clientClass);
   clientExpenses.value = (+(clientExpenses.value) + +(requestedPrice)).toFixed(2);
-  clientResquests.appendChild(newRequest);
 }
 
 const drinkClientRequestEvent = () => addClientRequest(drinkOptions);
 const foodClientRequestEvent = () => addClientRequest(foodOptions);
+
+// Contador de itens pedidos por clientes
+///
+function requestedItensCounter(clientClass) {
+  const counter = document.getElementById(`${clientClass}-counter`);
+  const clientRequests = document.getElementById(`${clientClass}-select`);
+  counter.value = `${clientRequests[clientRequests.selectedIndex].slot} x`;
+}
 
 // Faturar comanda de cliente e registrar valor gasto
 ////
