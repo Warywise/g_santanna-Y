@@ -83,6 +83,16 @@ main {
   margin: 10px;
 }
 
+#menu-div p {
+  padding: 5px;
+  background-color: lightgrey;
+  border-radius: 5%;
+  font-weight: 600;
+  margin-right: -50px;
+  width: 200px;
+  min-height: 30px;
+}
+
 #reveal-aside-section {
   position: absolute;
   right: 1vw;

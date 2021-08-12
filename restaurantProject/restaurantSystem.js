@@ -8,6 +8,7 @@ const drinkAddButton = document.getElementById('add-drink-button');
 const foodAddInput = document.getElementById('add-food-input');
 const foodAddButton = document.getElementById('add-food-button');
 
+const currentClientName = document.querySelector('#menu-div p');
 const optionsMenu = document.getElementById('menu-divs');
 const drinkOptions = document.getElementById('drink-options');
 const foodOptions = document.getElementById('food-options');
@@ -28,20 +29,24 @@ const drinkSectorMenu = document.getElementById('drink-section-menu');
 const foodSectorMenu = document.getElementById('food-section-menu');
 
 const drinkMenuOptions = {
-  'Agua': 2,
-  'Coca Lata': 3.5,
-  'Guaravita': 1.5,
-  'Todynho': 3,
+  // 'Agua': 2,
+  // 'Coca Lata': 3.5,
+  // 'Guaravita': 1.5,
+  // 'Todynho': 3,
 };
 
 const foodMenuOptions = {
-  'Coxinha': 2,
-  'Pastel': 3,
-  'Joelho': 2.5,
-  'Croissant': 3.5,
+  // 'Coxinha': 2,
+  // 'Pastel': 3,
+  // 'Joelho': 2.5,
+  // 'Croissant': 3.5,
 };
 
 const clientsObject = {};
+
+//
+////
+const updateClientName = () => currentClientName.innerHTML = clientsSelector.value;
 
 // Funções responsáveis pela adição de itens ao 'Select' de opções do cardápio
 ////
@@ -116,15 +121,23 @@ function requestRemover(clientClass) {
   const negativePercent = 100 - (document.getElementById(`${clientClass}-negative-input`).value);
   const clientRequests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
-  const itemPrice = clientRequests[clientRequests.selectedIndex].slot;
+  const itemKey = clientRequests[clientRequests.selectedIndex].value;
+  let itemPrice;
+  if (drinkMenuOptions[itemKey]) itemPrice = drinkMenuOptions[itemKey];
+  if (foodMenuOptions[itemKey]) itemPrice = foodMenuOptions[itemKey];
   if (negativeCheck.checked) {
-    const result = +(negativeCounter.slot) + +(itemPrice) * +(`0.${negativePercent}`);
+    const result = +(negativeCounter.slot) + (+(itemPrice) * +(`0.${negativePercent}`));
     negativeCounter.slot = result;
     negativeCounter.innerText = `R$${result.toFixed(2)}`
     negativeCheck.checked = false;
   }
+  const clientKey = clientsObject[clientClass];
+  const currentItem = clientRequests[clientRequests.selectedIndex];
+  currentItem.slot > 1 ?
+    currentItem.slot = +(currentItem.slot) - 1 :
+    delete clientKey[currentItem.value] && currentItem.remove();
   clientExpenses.value = +(clientExpenses.value) - +(itemPrice);
-  clientRequests[clientRequests.selectedIndex].remove();
+  requestedItensCounter(clientClass);
 }
 
 // Criar comanda de cliente e adiciona-la à pagina
@@ -135,7 +148,7 @@ const clientArea = (clientName, clientClass) =>
 <button id="${clientClass}-bill-balance" class="client-buttons buttons">Faturar Comanda</button></div>
 <div><select id="${clientClass}-select" class="input-areas"></select>
 <input class="client-counter" id="${clientClass}-counter" value="0 x" type="text" disabled>
-<button class="client-buttons buttons">Remover Item</button></div>
+<button id="${clientClass}-item-remover" class="client-buttons buttons">Remover Item</button></div>
 <div>Negativar ↦ <input type="text" value="35" id="${clientClass}-negative-input" class="negativate-input" disabled>%
 <input type="checkbox" id="${clientClass}-negative-check" class="client-checks"></div>`;
 
@@ -157,13 +170,15 @@ function addNewClient(clientName) {
   const clientCounter = () => requestedItensCounter(clientClass);
   clientRequests.addEventListener('click', clientCounter);
 
-  const itemRemover = document.getElementById(`${clientClass}-select`).nextElementSibling;
+  const itemRemover = document.getElementById(`${clientClass}-item-remover`);
   const removerItemEvent = () => requestRemover(clientClass);
   itemRemover.addEventListener('click', removerItemEvent);
 
   const billBalanceButton = document.getElementById(`${clientClass}-bill-balance`);
   const billBalanceEvent = () => getBillsBalance(clientClass);
   billBalanceButton.addEventListener('click', billBalanceEvent);
+
+  updateClientName();
 }
 
 const clientValue = () => {
@@ -180,6 +195,7 @@ function removeClient(clientName) {
   delete clientsObject[clientClass];
   const clientElements = document.querySelectorAll(`.${clientClass}`);
   clientElements.forEach((cur) => cur.remove());
+  updateClientName();
 }
 const clientSelectValue = () => clientsSelector.value;
 const clientRemoverButton = () => removeClient(clientSelectValue());
@@ -216,7 +232,11 @@ const foodClientRequestEvent = () => addClientRequest(foodOptions);
 function requestedItensCounter(clientClass) {
   const counter = document.getElementById(`${clientClass}-counter`);
   const clientRequests = document.getElementById(`${clientClass}-select`);
-  counter.value = `${clientRequests[clientRequests.selectedIndex].slot} x`;
+  if (clientRequests.selectedIndex >= 0) {
+    counter.value = `${clientRequests[clientRequests.selectedIndex].slot} x`;
+  } else {
+    counter.value = `0 x`
+  }
 }
 
 // Faturar comanda de cliente e registrar valor gasto
@@ -252,6 +272,7 @@ const asideFoodMenu = () => {
 //
 ////
 window.onload = () => {
+  clientsSelector.addEventListener('click', updateClientName);
   clientRemover.addEventListener('click', clientRemoverButton);
   clientAddButton.addEventListener('click', addClientButton);
   drinkAddButton.addEventListener('click', drinkButtonEvent);
