@@ -1,0 +1,203 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: inherit;
+}
+
+#reveal-aside-section:hover {
+  background-color: rgba(255, 237, 224, 0.8);
+}
+#reveal-aside-section:active {
+  opacity: 0.9;
+}
+
+select:focus {
+  outline: none;
+}
+
+body {
+  background-color: darkgray;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+option {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-section {
+  border-bottom: solid black;
+  position: relative;
+}
+
+.input-areas {
+  width: 200px;
+  padding: 5px;
+  margin: 1px;
+  font-weight: 600;
+  border-radius: 5%;
+}
+
+.buttons {
+  padding: 3px;
+  font-weight: 600;
+}
+
+#control-divs {
+  display: flex;
+  width: 100vw;
+  padding: 10px 0;
+  justify-content: space-around;
+  margin: 30px 0;
+  border-bottom: solid thin black;
+}
+
+#menu-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 900px;
+  margin: 20px;
+}
+
+.option-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 350px;
+}
+
+#menu-div div {
+  margin: 10px;
+}
+
+#menu-div p {
+  padding: 5px;
+  background-color: lightgrey;
+  border-radius: 5%;
+  font-weight: 600;
+  margin-right: -50px;
+  width: 200px;
+  min-height: 30px;
+}
+
+#reveal-aside-section {
+  position: absolute;
+  right: 1vw;
+  bottom: 5%;
+  font-size: large;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  line-height: 1.7rem;
+  padding: 10px 10px 5px 10px;
+  background-color: seashell;
+  border: solid tan;
+  border-radius: 10%;
+  transition: 1s background;
+}
+
+#reveal-arrow {
+  font-size: 3.5rem;
+  font-weight: 100;
+}
+
+.contents {
+  display: flex;
+  justify-content: space-between;
+}
+
+.client-divs {
+  font-size: 1.1rem;
+  max-width: 60vw;
+  margin: 25px 5px;
+  padding: 15px;
+  border: groove grey;
+  background-color: rgba(133, 133, 133, 0.8);
+}
+
+.client-divs div{
+  margin-top: 10px;
+}
+
+.client-checks {
+  width: 20px;
+  margin: 5px;
+}
+
+.negativate-input {
+  width: 30px;
+}
+
+.client-expenses {
+  width: 50px;
+  padding: 3px;
+  margin-left: 15px;
+  color: black;
+}
+
+.client-counter {
+  width: 30px;
+  padding: 3px;
+  /* margin-left: 5px; */
+  color: black;
+}
+
+.aside-section {
+  opacity: 0;
+  position: absolute !important;
+  text-align: center;
+  font-size: 1.1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  padding: 5px;
+  right: 5px;
+  margin: 10px;
+  transition: 0.6s opacity;
+  border: solid thin tan;
+  border-radius: 5%;
+  background-color: seashell;
+  align-self: flex-start;
+}
+
+.icon {
+  font-size: 2rem;
+  color: rgb(88, 40, 6);
+}
+
+.count-bills {
+  display: inline-block;
+  padding: 5px;
+  margin: 10px;
+  border: solid thin tan;
+}
+
+.count-bills div {
+  border: solid thin lightgrey;
+  text-align: start;
+}
+
+.menu-sections {
+  display: inline-table;
+  padding: 5px;
+  margin: 5px;
+  border: solid thin tan;
+  width: 20vw;
+}
+
+.menu-sections p {
+  text-align: start;
+  padding: 1px;
+  max-width: 100%;
+}

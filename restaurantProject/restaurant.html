@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="restaurantStyle.css">
+  <script type="text/javascript" src="restaurantSystem.js" async></script>
+  <title>Restaurant System</title>
+</head>
+<body>
+  <main>
+    <section class="main-section">
+      <div id="control-divs">
+        <div>
+          <legend>Clientes Ativos:</legend><select class="input-areas" id="current-clients">
+          </select>
+          <button id="remove-client" class="buttons">Remover Cliente</button>
+        </div>
+        <div>
+          <legend>Adicionar Novo Cliente:</legend><input type="text" placeholder="Nome do Cliente" class="input-areas" id="add-client-input">
+          <button id="add-client-button" class="buttons">Adicionar</button>
+        </div>
+        <div>
+          <legend>Adicionar Novo Comestível:</legend><input type="text" placeholder="'Item=Preço'" class="input-areas" id="add-food-input">
+          <button id="add-food-button" class="buttons">Adicionar</button>
+        </div>
+        <div>
+          <legend>Adicionar Nova Bebida:</legend><input type="text" placeholder="'Bebida=Preço'" class="input-areas" id="add-drink-input">
+          <button id="add-drink-button" class="buttons">Adicionar</button>
+        </div>
+      </div>
+      <div id="menu-div">
+        <p></p>
+        <div>
+          <div class="option-menu">
+            <label>Bebidas ⇀
+              <select id="drink-options" class="input-areas">
+              </select>
+            </label>
+            <button id="take-drink-order" class="take-order buttons">✍ Anotar Pedido</button>
+          </div>
+          <div class="option-menu">
+            <label>Comidas ⇁
+              <select id="food-options" class="input-areas">
+              </select>
+            </label>
+            <button id="take-food-order" class="take-order buttons">✍ Anotar Pedido</button>
+          </div>
+        </div>
+        <div id="menu-option-remover">
+          <input type="text" placeholder="Nome do Item" id="option-remover-input" class="input-areas">
+          <button id="option-remover-button" class="buttons">Apagar do Cardápio</button>
+        </div>
+        <button id="reveal-aside-section">Detalhes<br> <b id="reveal-arrow">➯</b></button>
+      </div>
+    </section>
+    <div class="contents">
+      <section class="secondary-section">
+      </section>
+      <section class="aside-section">
+        <div>
+          <p>- <b class="icon">✎</b> Faturamentos -</p>
+          <div class="count-bills">
+            <p>↶ Negativos</p>
+            <div slot="0" id="negative-count">0</div>
+          </div>
+          <div class="count-bills">
+            <p>↶ Positivos</p>
+            <div slot="0" id="positive-count">0</div>
+          </div>
+        </div>
+        <hr>
+        <article id="menu-article">
+          <p>☟ Cardápio do Dia!</p>
+          <div class="menu-sections" id="food-section-menu">
+            <div>↘ Comestíveis</div><br>
+          </div>
+          <div class="menu-sections" id="drink-section-menu">
+            <div>Bebidas ↙</div><br>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
