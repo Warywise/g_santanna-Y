@@ -45,19 +45,21 @@ const foodMenuOptions = {
 ////
 function addMenuOptions(menuSelector, menuOptions) {
   menuSelector.innerHTML = '';
-  const itens = Object.keys(menuOptions);
-  const prices = Object.values(menuOptions);
-  itens.forEach((cur, ind) => {
+  const itens = Object.keys(menuOptions).sort();
+  itens.forEach((cur) => {
     const selector = document.createElement('option');
     selector.innerHTML = cur;
-    selector.slot = prices[ind];
+    selector.slot = menuOptions[cur];
     menuSelector.appendChild(selector);
   });
 }
 
 function addMenuOptionsButton(inputValue, selector, menu) {
-  const newOption = (inputValue()).split('=');
-  menu[newOption[0]] = +(newOption[1]);
+  const newOptions = (inputValue()).split('/');
+  newOptions.forEach((values) => {
+    const newOption = values.split('=');
+    menu[newOption[0]] = +(newOption[1]);
+  });
   addMenuOptions(selector, menu);
 }
 
@@ -204,11 +206,10 @@ function getBillsBalance(clientClass) {
 // Preencher cardápio de setor lateral
 ////
 function fillAsideMenu(menuOption, menuSector) {
-  const itens = Object.keys(menuOption);
-  const prices = Object.values(menuOption);
-  itens.forEach((item, ind) => {
+  const itens = Object.keys(menuOption).sort();
+  itens.forEach((item) => {
     const line = document.createElement('p');
-    line.innerHTML = `➢ ${item}: R$${(prices[ind]).toFixed(2)}`
+    line.innerHTML = `➢ ${item}: R$${(menuOption[item]).toFixed(2)}`
     menuSector.appendChild(line);
   });
 }
