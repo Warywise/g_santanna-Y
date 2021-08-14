@@ -2,6 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
+  letter-spacing: 1px;
 }
 
 ::selection {
@@ -23,6 +25,18 @@ body {
   background-color: darkgray;
 }
 
+header {
+  text-align: center;
+  padding: 10px;
+  border-bottom: groove thick lightgray;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 label {
   font-size: 1.2rem;
 }
@@ -32,14 +46,14 @@ option {
   font-weight: 600;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
+.main-section {
+  border-bottom: groove thick gray;
+  position: relative;
 }
 
-.main-section {
-  border-bottom: solid black;
-  position: relative;
+#current-clients {
+  font-size: small;
+  letter-spacing: 0.5px;
 }
 
 .input-areas {
@@ -48,20 +62,37 @@ main {
   margin: 1px;
   font-weight: 600;
   border-radius: 5%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
 }
 
 .buttons {
   padding: 3px;
   font-weight: 600;
+  font-size: 1rem;
 }
 
 #control-divs {
   display: flex;
-  width: 100vw;
-  padding: 10px 0;
+  width: 100%;
+  padding: 10px 0 20px 0;
   justify-content: space-around;
   margin: 30px 0;
-  border-bottom: solid thin black;
+  border-bottom: groove thin black;
+}
+
+#control-divs div {
+  position: relative;
+}
+
+.validation-alert {
+  position: absolute;
+  color: red;
+  width: max-content;
+  bottom: -20px;
+  left: -20px;
+  opacity: 0;
+  transition: 0.8s opacity;
 }
 
 #menu-div {
@@ -150,7 +181,6 @@ main {
 .client-counter {
   width: 30px;
   padding: 3px;
-  /* margin-left: 5px; */
   color: black;
 }
 
@@ -174,6 +204,7 @@ main {
 .icon {
   font-size: 2rem;
   color: rgb(88, 40, 6);
+  font-weight: 300;
 }
 
 .count-bills {

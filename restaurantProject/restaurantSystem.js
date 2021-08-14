@@ -2,6 +2,7 @@ const clientsSelector = document.getElementById('current-clients');
 const clientRemover = document.getElementById('remove-client');
 const clientAddInput = document.getElementById('add-client-input');
 const clientAddButton = document.getElementById('add-client-button');
+const clientAddAlert = document.querySelector('.add-client-alert');
 
 const drinkAddInput = document.getElementById('add-drink-input');
 const drinkAddButton = document.getElementById('add-drink-button');
@@ -28,14 +29,14 @@ const positiveCounter = document.getElementById('positive-count');
 const drinkSectorMenu = document.getElementById('drink-section-menu');
 const foodSectorMenu = document.getElementById('food-section-menu');
 
-const drinkMenuOptions = {
+let drinkMenuOptions = {
   // 'Agua': 2,
   // 'Coca Lata': 3.5,
   // 'Guaravita': 1.5,
   // 'Todynho': 3,
 };
 
-const foodMenuOptions = {
+let foodMenuOptions = {
   // 'Coxinha': 2,
   // 'Pastel': 3,
   // 'Joelho': 2.5,
@@ -47,6 +48,15 @@ const clientsObject = {};
 //
 ////
 const updateClientName = () => currentClientName.innerHTML = clientsSelector.value;
+
+// 
+////
+function saveMenuOnLocal(drink, food) {
+  if (drink) return JSON.parse(localStorage.getItem('restaurantDrinkMenu'));
+  if (food) return JSON.parse(localStorage.getItem('restaurantFoodMenu'));
+  localStorage.setItem('restaurantDrinkMenu', JSON.stringify(drinkMenuOptions));
+  localStorage.setItem('restaurantFoodMenu', JSON.stringify(foodMenuOptions));
+}
 
 // Funções responsáveis pela adição de itens ao 'Select' de opções do cardápio
 ////
@@ -67,6 +77,7 @@ function addMenuOptionsButton(inputValue, selector, menu) {
     const newOption = values.split('=');
     menu[newOption[0]] = +(newOption[1]);
   });
+  saveMenuOnLocal(false, false);
   addMenuOptions(selector, menu);
 }
 
@@ -96,6 +107,7 @@ function optionMenuRemover() {
   if (drinkMenuOptions[itemToRemove]) delete drinkMenuOptions[itemToRemove];
   if (foodMenuOptions[itemToRemove]) delete foodMenuOptions[itemToRemove];
   optionRemoverInput.value = '';
+  saveMenuOnLocal(false, false);
   asideDrinkMenu();
   asideFoodMenu();
   addMenuOptions(drinkOptions, drinkMenuOptions);
@@ -153,6 +165,13 @@ const clientArea = (clientName, clientClass) =>
 <input type="checkbox" id="${clientClass}-negative-check" class="client-checks"></div>`;
 
 function addNewClient(clientName) {
+  if (clientName.match(/[^ãôéáíúa-z\s]+/gi) || !clientName.match(/[^\s]+/gi)) {
+    clientAddAlert.style.opacity = '1';
+    setTimeout(() => clientAddAlert.style.opacity = '0', 6000);
+    return undefined;
+  }
+  clientAddInput.value = '';
+
   const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
   clientsObject[clientClass] = {};
 
@@ -181,11 +200,7 @@ function addNewClient(clientName) {
   updateClientName();
 }
 
-const clientValue = () => {
-  const value = clientAddInput.value;
-  clientAddInput.value = '';
-  return value;
-}
+const clientValue = () => clientAddInput.value.trim();
 const addClientButton = () => addNewClient(clientValue());
 
 // Remover cliente e apagar comanda
@@ -281,6 +296,9 @@ window.onload = () => {
   drinkOrder.addEventListener('click', drinkClientRequestEvent);
   foodOrder.addEventListener('click', foodClientRequestEvent);
   asideRevealButton.addEventListener('click', changeAsideDisplay);
+
+  if (localStorage.getItem('restaurantDrinkMenu')) drinkMenuOptions = saveMenuOnLocal(true, false);
+  if (localStorage.getItem('restaurantFoodMenu')) foodMenuOptions =   saveMenuOnLocal(false, true);
 
   asideDrinkMenu();
   asideFoodMenu();
