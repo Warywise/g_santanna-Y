@@ -45,6 +45,14 @@ let foodMenuOptions = {
 
 const clientsObject = {};
 
+const clientRegEx = (/[^ãôéáíúa-z\s\']+/gi);
+const foodDrinkRegEx = (/([\-\,\'\"\s\wãâáêéíõôú]+)(\s+)?\=(\s+)?\d+([\.]?[\d]+)?/gi);
+
+const firstValidation = (string) => {
+  let newString = string.replace(/([\w|\s])\.+([\w|\s])/g, '$1,$2');
+  return newString.replace(/(\d+)[\,|\.]+(\d+)/g, '$1.$2');
+}
+
 //
 ////
 const updateClientName = () => currentClientName.innerHTML = clientsSelector.value;
@@ -72,10 +80,13 @@ function addMenuOptions(menuSelector, menuOptions) {
 }
 
 function addMenuOptionsButton(inputValue, selector, menu) {
-  const newOptions = (inputValue()).split('/');
-  newOptions.forEach((values) => {
-    const newOption = values.split('=');
-    menu[newOption[0]] = +(newOption[1]);
+  const validValue = firstValidation(inputValue());
+  const newOptions = validValue.match(foodDrinkRegEx);
+  newOptions.forEach((value) => {
+    if (value.match(/^([\s\-]).+/gi)) value = value.replace(/\-/, '');
+    const newOption = value.split('=');
+    if (!newOption[0].match(/[^\s|\']+/gi)) return;
+    menu[newOption[0].trim()] = +(newOption[1].trim());
   });
   saveMenuOnLocal(false, false);
   addMenuOptions(selector, menu);
@@ -152,8 +163,8 @@ function requestRemover(clientClass) {
   requestedItensCounter(clientClass);
 }
 
-// Criar comanda de cliente e adiciona-la à pagina
-////
+// // Criar comanda de cliente e adiciona-la à pagina
+// ////
 const clientArea = (clientName, clientClass) =>
 `<label><input type="checkbox" class="client-checks">${clientName}</label>
 <div><input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
@@ -165,14 +176,14 @@ const clientArea = (clientName, clientClass) =>
 <input type="checkbox" id="${clientClass}-negative-check" class="client-checks"></div>`;
 
 function addNewClient(clientName) {
-  if (clientName.match(/[^ãôéáíúa-z\s]+/gi) || !clientName.match(/[^\s]+/gi)) {
+  if (clientName.match(clientRegEx) || !clientName.match(/[^\s|\']+/gi)) {
     clientAddAlert.style.opacity = '1';
     setTimeout(() => clientAddAlert.style.opacity = '0', 6000);
-    return undefined;
+    return;
   }
   clientAddInput.value = '';
 
-  const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
+  const clientClass = (clientName).replace(/[\s|\']/g, '').toLowerCase();
   clientsObject[clientClass] = {};
 
   const clientOption = document.createElement('option');
@@ -206,7 +217,7 @@ const addClientButton = () => addNewClient(clientValue());
 // Remover cliente e apagar comanda
 ////
 function removeClient(clientName) {
-  const clientClass = (clientName).replace(/\s/g, '').toLowerCase();
+  const clientClass = (clientName).replace(/[\s|\']/g, '').toLowerCase();
   delete clientsObject[clientClass];
   const clientElements = document.querySelectorAll(`.${clientClass}`);
   clientElements.forEach((cur) => cur.remove());
@@ -218,7 +229,7 @@ const clientRemoverButton = () => removeClient(clientSelectValue());
 // Adicionar pedido de cliente à sua comanda
 ////
 function addClientRequest(optionsMenu) {
-  const clientClass = clientSelectValue().replace(/\s/g, '').toLowerCase();
+  const clientClass = clientSelectValue().replace(/[\s|\']/g, '').toLowerCase();
   const clientKey = clientsObject[clientClass];
   const clientRequests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
