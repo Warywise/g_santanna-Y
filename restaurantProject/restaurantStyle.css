@@ -119,9 +119,31 @@ option {
   background-color: lightgrey;
   border-radius: 5%;
   font-weight: 600;
-  margin-right: -50px;
+  margin-right: 20px;
   width: 200px;
   min-height: 30px;
+}
+
+.overflow-areas {
+  padding: 5px;
+  height: 100px;
+  margin: 5px;
+  border: solid thin;
+  overflow-y: scroll;
+  background-color: whitesmoke;
+}
+
+.overflow-areas li {
+  padding: 1px;
+  transition: 0.05s font-size;
+
+}
+
+li.selected {
+  font-size: 1.1rem;
+  padding: 3px;
+  outline: solid thin rgb(15, 15, 15);
+  outline-style: auto;
 }
 
 #reveal-aside-section {

@@ -68,11 +68,19 @@ function saveMenuOnLocal(drink, food) {
 
 // Funções responsáveis pela adição de itens ao 'Select' de opções do cardápio
 ////
+function selectedOptionEvent(event) {
+  const selected = event.target;
+  if (selected.parentElement.querySelector('.selected'))
+    selected.parentElement.querySelector('.selected').className = '';
+  selected.className = 'selected';
+}
+
 function addMenuOptions(menuSelector, menuOptions) {
   menuSelector.innerHTML = '';
   const itens = Object.keys(menuOptions).sort();
   itens.forEach((cur) => {
-    const selector = document.createElement('option');
+    const selector = document.createElement('li');
+    selector.addEventListener('click', selectedOptionEvent);
     selector.innerHTML = cur;
     selector.slot = menuOptions[cur];
     menuSelector.appendChild(selector);
@@ -233,18 +241,18 @@ function addClientRequest(optionsMenu) {
   const clientKey = clientsObject[clientClass];
   const clientRequests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
-  const requestedItem = optionsMenu[optionsMenu.selectedIndex].value;
-  const requestedPrice = optionsMenu[optionsMenu.selectedIndex].slot;
+  const requestedItem = optionsMenu.querySelector('.selected').innerText;
+  const requestedPrice = optionsMenu.querySelector('.selected').slot;
   if (!clientKey[requestedItem]) {
-    clientKey[requestedItem] = true;
+    clientKey[requestedItem] = +(requestedPrice);
     const newRequest = document.createElement('option');
     newRequest.innerHTML = requestedItem;
     newRequest.slot = 1;
     clientRequests.appendChild(newRequest);
   } else {
-    const allRequests = document.querySelectorAll(`#${clientClass}-select option`);
-    const thisRequest = Array.from(allRequests).filter((item) => item.innerHTML === requestedItem);
-    thisRequest[0].slot = +(thisRequest[0].slot) + 1;
+    const thisRequest = Array.from(document.querySelectorAll(`#${clientClass}-select option`))
+      .find((item) => item.innerHTML === requestedItem);
+    thisRequest.slot = +(thisRequest.slot) + 1;
   }
   requestedItensCounter(clientClass);
   clientExpenses.value = (+(clientExpenses.value) + +(requestedPrice)).toFixed(2);
