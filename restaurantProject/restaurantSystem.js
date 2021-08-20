@@ -4,9 +4,8 @@ const clientAddInput = document.getElementById('add-client-input');
 const clientAddButton = document.getElementById('add-client-button');
 const clientAddAlert = document.querySelector('.add-client-alert');
 
-const drinkAddInput = document.getElementById('add-drink-input');
+const addMenuInput = document.getElementById('add-menu-input');
 const drinkAddButton = document.getElementById('add-drink-button');
-const foodAddInput = document.getElementById('add-food-input');
 const foodAddButton = document.getElementById('add-food-button');
 
 const currentClientName = document.querySelector('#menu-div p');
@@ -43,7 +42,10 @@ let foodMenuOptions = {
   // 'Croissant': 3.5,
 };
 
-const clientsObject = {};
+const clientsObject = {
+  // clienteUm: { item1: 2.5, item2:1.5 item3: 4 },
+  // outroCliente: { item1: 5, item2: 5.5, item3: 2 }
+};
 
 const clientRegEx = (/[^ãôéáíúa-z\s\']+/gi);
 const foodDrinkRegEx = (/([\-\,\'\"\s\wãâáêéíõôú]+)(\s+)?\=(\s+)?\d+([\.]?[\d]+)?/gi);
@@ -70,9 +72,13 @@ function saveMenuOnLocal(drink, food) {
 ////
 function selectedOptionEvent(event) {
   const selected = event.target;
-  if (selected.parentElement.querySelector('.selected'))
-    selected.parentElement.querySelector('.selected').className = '';
-  selected.className = 'selected';
+  if (selected.className == 'selected') {
+    selected.className = '';
+  } else {
+    if (selected.parentElement.querySelector('.selected'))
+      selected.parentElement.querySelector('.selected').className = '';
+    selected.className = 'selected';
+  }
 }
 
 function addMenuOptions(menuSelector, menuOptions) {
@@ -100,22 +106,17 @@ function addMenuOptionsButton(inputValue, selector, menu) {
   addMenuOptions(selector, menu);
 }
 
-const foodInputValue = () => {
-  const value = foodAddInput.value;
-  foodAddInput.value = '';
-  return value;
-}
-const drinkInputValue = () => {
-  const value = drinkAddInput.value;
-  drinkAddInput.value = '';
+const textMenuInputValue = () => {
+  const value = addMenuInput.value;
+  addMenuInput.value = '';
   return value;
 }
 const drinkButtonEvent = () => {
-  addMenuOptionsButton(drinkInputValue, drinkOptions, drinkMenuOptions);
+  addMenuOptionsButton(textMenuInputValue, drinkOptions, drinkMenuOptions);
   asideDrinkMenu();
 };
 const foodButtonEvent = () => {
-  addMenuOptionsButton(foodInputValue, foodOptions, foodMenuOptions);
+  addMenuOptionsButton(textMenuInputValue, foodOptions, foodMenuOptions);
   asideFoodMenu();
 }
 
@@ -152,18 +153,17 @@ function requestRemover(clientClass) {
   const negativePercent = 100 - (document.getElementById(`${clientClass}-negative-input`).value);
   const clientRequests = document.getElementById(`${clientClass}-select`);
   const clientExpenses = document.getElementById(`${clientClass}-input`);
-  const itemKey = clientRequests[clientRequests.selectedIndex].value;
-  let itemPrice;
-  if (drinkMenuOptions[itemKey]) itemPrice = drinkMenuOptions[itemKey];
-  if (foodMenuOptions[itemKey]) itemPrice = foodMenuOptions[itemKey];
+  const currentItem = clientRequests[clientRequests.selectedIndex];
+  const itemKey = currentItem.value;
+  const clientKey = clientsObject[clientClass];
+  const itemPrice = clientKey[itemKey];
+
   if (negativeCheck.checked) {
     const result = +(negativeCounter.slot) + (+(itemPrice) * +(`0.${negativePercent}`));
     negativeCounter.slot = result;
     negativeCounter.innerText = `R$${result.toFixed(2)}`
     negativeCheck.checked = false;
   }
-  const clientKey = clientsObject[clientClass];
-  const currentItem = clientRequests[clientRequests.selectedIndex];
   currentItem.slot > 1 ?
     currentItem.slot = +(currentItem.slot) - 1 :
     delete clientKey[currentItem.value] && currentItem.remove();
@@ -309,8 +309,10 @@ window.onload = () => {
   clientsSelector.addEventListener('click', updateClientName);
   clientRemover.addEventListener('click', clientRemoverButton);
   clientAddButton.addEventListener('click', addClientButton);
+
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
+
   optionRemoverButton.addEventListener('click', optionMenuRemover);
   drinkOrder.addEventListener('click', drinkClientRequestEvent);
   foodOrder.addEventListener('click', foodClientRequestEvent);

@@ -25,13 +25,12 @@
           <span class="validation-alert add-client-alert">Use letras e espaços! (ex: 'Mário Antônio')</span>
           <button id="add-client-button" class="buttons">Adicionar</button>
         </div>
-        <div>
-          <legend>Adicionar Novo Comestível:</legend><input type="text" placeholder="Ex:'Pizza=3.5'" class="input-areas" id="add-food-input">
-          <button id="add-food-button" class="buttons">Adicionar</button>
-        </div>
-        <div>
-          <legend>Adicionar Nova Bebida:</legend><input type="text" placeholder="Ex:'Agua=1.5'" class="input-areas" id="add-drink-input">
-          <button id="add-drink-button" class="buttons">Adicionar</button>
+        <div id="add-menu-area">
+          <legend>Adicionar Novo Comestível ou Bebida:</legend><textarea placeholder="
+Adicione apenas um tipo por vez. 
+  Ex:'Pizza=3.5' ou 'Agua=1.5' " class="input-areas" id="add-menu-input"></textarea>
+          <div><button id="add-food-button" class="buttons">Adicionar Comestível</button>
+          <button id="add-drink-button" class="buttons">Adicionar Bebida</button></div>
         </div>
       </div>
       <div id="menu-div">

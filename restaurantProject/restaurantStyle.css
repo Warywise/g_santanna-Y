@@ -75,14 +75,27 @@ option {
 #control-divs {
   display: flex;
   width: 100%;
-  padding: 10px 0 20px 0;
+  padding: 10px 0 15px 0;
   justify-content: space-around;
-  margin: 30px 0;
+  align-items: center;
+  margin: 10px 0 10px 0;
   border-bottom: groove thin black;
 }
 
 #control-divs div {
   position: relative;
+  margin: 3px;
+}
+
+#add-menu-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#add-menu-input {
+  width: 400px;
+  height: 100px;
 }
 
 .validation-alert {
@@ -120,7 +133,7 @@ option {
   border-radius: 5%;
   font-weight: 600;
   margin-right: 20px;
-  width: 200px;
+  width: 250px;
   min-height: 30px;
 }
 
