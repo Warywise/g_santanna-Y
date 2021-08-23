@@ -16,17 +16,18 @@
     <section class="main-section">
       <div id="control-divs">
         <div>
-          <legend>Clientes Ativos:</legend><select class="input-areas" id="current-clients">
+          <legend>Clientes Ativos: <b class="information">ⓘ</b></legend><select class="input-areas" id="current-clients">
+            <option class="clienteteste">Cliente Teste</option>
           </select>
           <button id="remove-client" class="buttons">Remover Cliente</button>
         </div>
         <div>
-          <legend>Adicionar Novo Cliente:</legend><input type="text" placeholder="Nome do Cliente" class="input-areas" id="add-client-input">
+          <legend>Adicionar Novo Cliente: <b class="information">ⓘ</b></legend><input type="text" placeholder="Nome do Cliente" class="input-areas" id="add-client-input">
           <span class="validation-alert add-client-alert">Use letras e espaços! (ex: 'Mário Antônio')</span>
           <button id="add-client-button" class="buttons">Adicionar</button>
         </div>
         <div id="add-menu-area">
-          <legend>Adicionar Novo Comestível ou Bebida:</legend><textarea placeholder="
+          <legend>Adicionar Novo Comestível ou Bebida: <b class="information">ⓘ</b></legend><textarea placeholder="
 Adicione apenas um tipo por vez. 
   Ex:'Pizza=3.5' ou 'Agua=1.5' " class="input-areas" id="add-menu-input"></textarea>
           <div>
@@ -36,7 +37,7 @@ Adicione apenas um tipo por vez.
         </div>
       </div>
       <div id="menu-div">
-        <p></p>
+        <p></p><b class="information">ⓘ</b>
         <!-- <div> -->
           <div class="option-menu">
             <label>Bebidas ↴
@@ -62,6 +63,27 @@ Adicione apenas um tipo por vez.
     </section>
     <div class="contents">
       <section class="secondary-section">
+        <div class="client-divs clienteteste">
+          <label>Cliente Teste</label>
+          <div>
+            <input class="client-expenses" id="clienteteste-input" value="0" type="text" disabled>
+            <button id="clienteteste-bill-balance" class="client-buttons buttons">Faturar Comanda</button>
+            <button class="more-info">↙</button>
+          </div>
+          <div class="hidden-div">
+            <select id="clienteteste-select" class="input-areas"></select>
+            <div>
+              <div>
+                <input class="client-counter" id="clienteteste-counter" value="0 x" type="text" disabled>
+                <button id="clienteteste-item-remover" class="client-buttons buttons">Remover Item</button>
+              </div>
+              <div>
+                Negativar ↦ <input type="text" value="35" id="clienteteste-negative-input" class="negativate-input" disabled>%
+                <input type="checkbox" id="clienteteste-negative-check" class="client-checks">
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <section class="aside-section">
         <div>
