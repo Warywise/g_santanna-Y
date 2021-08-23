@@ -1,3 +1,8 @@
+import { firstValidation, clientRegEx, foodDrinkRegEx } from './validationModule.js';
+import { saveMenuOnLocal } from './localStorageModule.js';
+import { addNewClient, clientValue } from './addClientModule.js';
+import { changeAsideDisplay, asideDrinkMenu, asideFoodMenu } from './asideMenuModule.js';
+
 const clientsSelector = document.getElementById('current-clients');
 const clientRemover = document.getElementById('remove-client');
 const clientAddInput = document.getElementById('add-client-input');
@@ -9,7 +14,6 @@ const drinkAddButton = document.getElementById('add-drink-button');
 const foodAddButton = document.getElementById('add-food-button');
 
 const currentClientName = document.querySelector('#menu-div p');
-const optionsMenu = document.getElementById('menu-divs');
 const drinkOptions = document.getElementById('drink-options');
 const foodOptions = document.getElementById('food-options');
 const drinkOrder = document.getElementById('take-drink-order');
@@ -18,7 +22,6 @@ const optionRemoverInput = document.getElementById('option-remover-input');
 const optionRemoverButton = document.getElementById('option-remover-button');
 
 const asideRevealButton = document.getElementById('reveal-aside-section');
-let hideAside = true;
 
 const secondarySection = document.querySelector('.secondary-section');
 
@@ -28,45 +31,15 @@ const positiveCounter = document.getElementById('positive-count');
 const drinkSectorMenu = document.getElementById('drink-section-menu');
 const foodSectorMenu = document.getElementById('food-section-menu');
 
-let drinkMenuOptions = {
-  // 'Agua': 2,
-  // 'Coca Lata': 3.5,
-  // 'Guaravita': 1.5,
-  // 'Todynho': 3,
-};
+let drinkMenuOptions = {};
 
-let foodMenuOptions = {
-  // 'Coxinha': 2,
-  // 'Pastel': 3,
-  // 'Joelho': 2.5,
-  // 'Croissant': 3.5,
-};
+let foodMenuOptions = {};
 
-const clientsObject = {
-  // clienteUm: { item1: 2.5, item2:1.5 item3: 4 },
-  // outroCliente: { item1: 5, item2: 5.5, item3: 2 }
-};
-
-const clientRegEx = (/[^ãôéáíúa-z\s\']+/gi);
-const foodDrinkRegEx = (/([\-\,\'\"\s\wãâáêéíõôú]+)(\s+)?\=(\s+)?\d+([\.]?[\d]+)?/gi);
-
-const firstValidation = (string) => {
-  let newString = string.replace(/([\w|\s])\.+([\w|\s])/g, '$1,$2');
-  return newString.replace(/(\d+)[\,|\.]+(\d+)/g, '$1.$2');
-}
+const clientsObject = {};
 
 //
 ////
 const updateClientName = () => currentClientName.innerHTML = clientsSelector.value;
-
-// 
-////
-function saveMenuOnLocal(drink, food) {
-  if (drink) return JSON.parse(localStorage.getItem('restaurantDrinkMenu'));
-  if (food) return JSON.parse(localStorage.getItem('restaurantFoodMenu'));
-  localStorage.setItem('restaurantDrinkMenu', JSON.stringify(drinkMenuOptions));
-  localStorage.setItem('restaurantFoodMenu', JSON.stringify(foodMenuOptions));
-}
 
 // Funções responsáveis pela adição de itens ao 'Select' de opções do cardápio
 ////
@@ -134,18 +107,6 @@ function optionMenuRemover() {
   addMenuOptions(foodOptions, foodMenuOptions);
 }
 
-// Revelar e esconder setor lateral de faturamentos e cardápio
-////
-function changeAsideDisplay() {
-  if (hideAside) {
-    asideSection.style.opacity = '1';
-    hideAside = false;
-  } else {
-    asideSection.style.opacity = '0';
-    hideAside = true;
-  }
-}
-
 // Remover item de comanda do cliente
 ////
 function requestRemover(clientClass) {
@@ -170,57 +131,6 @@ function requestRemover(clientClass) {
   clientExpenses.value = +(clientExpenses.value) - +(itemPrice);
   requestedItensCounter(clientClass);
 }
-
-// // Criar comanda de cliente e adiciona-la à pagina
-// ////
-const clientArea = (clientName, clientClass) =>
-`<label><input type="checkbox" class="client-checks">${clientName}</label>
-<div><input class="client-expenses" id="${clientClass}-input" value="0" type="text" disabled>
-<button id="${clientClass}-bill-balance" class="client-buttons buttons">Faturar Comanda</button></div>
-<div><select id="${clientClass}-select" class="input-areas"></select>
-<input class="client-counter" id="${clientClass}-counter" value="0 x" type="text" disabled>
-<button id="${clientClass}-item-remover" class="client-buttons buttons">Remover Item</button></div>
-<div>Negativar ↦ <input type="text" value="35" id="${clientClass}-negative-input" class="negativate-input" disabled>%
-<input type="checkbox" id="${clientClass}-negative-check" class="client-checks"></div>`;
-
-function addNewClient(clientName) {
-  if (clientName.match(clientRegEx) || !clientName.match(/[^\s|\']+/gi)) {
-    clientAddAlert.style.opacity = '1';
-    setTimeout(() => clientAddAlert.style.opacity = '0', 6000);
-    return;
-  }
-  clientAddInput.value = '';
-
-  const clientClass = (clientName).replace(/[\s|\']/g, '').toLowerCase();
-  clientsObject[clientClass] = {};
-
-  const clientOption = document.createElement('option');
-  clientOption.className = clientClass;
-  clientOption.innerHTML = clientName;
-  clientsSelector.appendChild(clientOption);
-
-  const div = document.createElement('div');
-  div.className = `client-divs ${clientClass}`
-  div.innerHTML = clientArea(clientName, clientClass);
-  secondarySection.appendChild(div);
-
-  const clientRequests = document.getElementById(`${clientClass}-select`);
-  const clientCounter = () => requestedItensCounter(clientClass);
-  clientRequests.addEventListener('click', clientCounter);
-
-  const itemRemover = document.getElementById(`${clientClass}-item-remover`);
-  const removerItemEvent = () => requestRemover(clientClass);
-  itemRemover.addEventListener('click', removerItemEvent);
-
-  const billBalanceButton = document.getElementById(`${clientClass}-bill-balance`);
-  const billBalanceEvent = () => getBillsBalance(clientClass);
-  billBalanceButton.addEventListener('click', billBalanceEvent);
-
-  updateClientName();
-}
-
-const clientValue = () => clientAddInput.value.trim();
-const addClientButton = () => addNewClient(clientValue());
 
 // Remover cliente e apagar comanda
 ////
@@ -283,32 +193,12 @@ function getBillsBalance(clientClass) {
   removeClient(clientClass);
 }
 
-// Preencher cardápio de setor lateral
-////
-function fillAsideMenu(menuOption, menuSector) {
-  const itens = Object.keys(menuOption).sort();
-  itens.forEach((item) => {
-    const line = document.createElement('p');
-    line.innerHTML = `➢ ${item}: R$${(menuOption[item]).toFixed(2)}`
-    menuSector.appendChild(line);
-  });
-}
-
-const asideDrinkMenu = () => {
-  drinkSectorMenu.innerHTML = '<div>Bebidas ↙</div><br>'
-  fillAsideMenu(drinkMenuOptions, drinkSectorMenu);
-}
-const asideFoodMenu = () => {
-  foodSectorMenu.innerHTML = '<div>↘ Comestíveis</div><br>'
-  fillAsideMenu(foodMenuOptions, foodSectorMenu);
-}
-
 //
 ////
 window.onload = () => {
   clientsSelector.addEventListener('click', updateClientName);
   clientRemover.addEventListener('click', clientRemoverButton);
-  clientAddButton.addEventListener('click', addClientButton);
+  clientAddButton.addEventListener('click', () => addNewClient(clientValue()));
 
   drinkAddButton.addEventListener('click', drinkButtonEvent);
   foodAddButton.addEventListener('click', foodButtonEvent);
@@ -327,4 +217,36 @@ window.onload = () => {
   addMenuOptions(foodOptions, foodMenuOptions);
 }
 
+export {
+  clientsSelector,
+  clientRemover,
+  clientAddInput,
+  clientAddButton,
+  clientAddAlert,
+  addMenuInput,
+  drinkAddButton,
+  foodAddButton,
+  currentClientName,
+  drinkOptions,
+  foodOptions,
+  drinkOrder,
+  foodOrder,
+  optionRemoverInput,
+  optionRemoverButton,
+  asideRevealButton,
+  secondarySection,
+  asideSection,
+  negativeCounter,
+  positiveCounter,
+  drinkSectorMenu,
+  foodSectorMenu,
+  drinkMenuOptions,
+  foodMenuOptions,
+  clientsObject,
+  updateClientName,
+  clientRegEx,
+  requestRemover,
+  requestedItensCounter,
+  getBillsBalance,
+}
 // https://www.devmedia.com.br/desenhando-com-o-mouse-na-canvas-da-html5/27619 

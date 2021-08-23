@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" rel="stylesheet" href="restaurantStyle.css">
-  <script type="text/javascript" src="restaurantSystem.js" async></script>
+  <script type="module" src="restaurantSystem.js" async></script>
   <title>Restaurant System</title>
 </head>
 <body>
@@ -29,8 +29,10 @@
           <legend>Adicionar Novo Comestível ou Bebida:</legend><textarea placeholder="
 Adicione apenas um tipo por vez. 
   Ex:'Pizza=3.5' ou 'Agua=1.5' " class="input-areas" id="add-menu-input"></textarea>
-          <div><button id="add-food-button" class="buttons">Adicionar Comestível</button>
-          <button id="add-drink-button" class="buttons">Adicionar Bebida</button></div>
+          <div>
+            <button id="add-food-button" class="buttons">Adicionar Comestível</button>
+            <button id="add-drink-button" class="buttons">Adicionar Bebida</button>
+          </div>
         </div>
       </div>
       <div id="menu-div">
