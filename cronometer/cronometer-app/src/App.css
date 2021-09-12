@@ -1,0 +1,42 @@
+body {
+  background-image: url('./images/nyan_cat_background.jpg');
+  background-size: contain;
+  background-attachment: fixed;
+  background-repeat: repeat;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  align-items: center;
+  background-color: #2e3c58da;
+  color: white;
+  display: flex;
+  font-size: calc(13px + 2vmin);
+  font-weight: 500;
+  justify-content: center;
+  text-shadow: 0.5px 0.5px 2px black;
+}
+
+.cronometer-box {
+  font-size: x-large;
+  margin: 30vh auto;
+  
+}
+
+.cronometer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
