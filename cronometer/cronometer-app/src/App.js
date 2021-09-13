@@ -15,8 +15,8 @@ class App extends Component {
         }
     ));
 
-      owner.timeoutId = setTimeout(() => {
-        owner.intervalId = setInterval(() => {
+      owner.mouseTimeoutId = setTimeout(() => {
+        owner.mouseIntervalId = setInterval(() => {
           owner.setState((prevSt) => (
             prevSt[name] < 59
             ? {
@@ -26,8 +26,8 @@ class App extends Component {
               [name]: 0,
             }
         ));
-        }, 150);
-      }, 1000);
+        }, 100);
+      }, 800);
       return;
     }
 
@@ -41,8 +41,8 @@ class App extends Component {
         }
     ));
 
-    owner.timeoutId = setTimeout(() => {
-      owner.intervalId = setInterval(() => {
+    owner.mouseTimeoutId = setTimeout(() => {
+      owner.mouseIntervalId = setInterval(() => {
         owner.setState((prevSt) => (
           prevSt[name] > 0
             ? {
@@ -52,17 +52,19 @@ class App extends Component {
               [name]: 59,
             }
         ));
-      }, 150);
-    }, 1000);
+      }, 100);
+    }, 800);
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <p>Nyan Counter</p>
+          <p>Nyan Catrometer</p>
         </header>
         <Cronometer changeTimer={ this.changeTimer } />
+        <div className="nyan-cat" />
+        <audio id="nyan-audio" src="https://www.albinoblacksheep.com/audio/mp3/Nyanyanyanyanyanyanya.mp3" preload="auto" />
       </div>
     );
   }

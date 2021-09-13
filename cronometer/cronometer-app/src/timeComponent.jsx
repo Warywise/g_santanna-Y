@@ -6,9 +6,9 @@ class TimeComponent extends Component {
     const { unit, curTime, increase, decrease, clearEv } = this.props;
     return (
       <div>
-        <button name={ unit } onMouseDown={ increase } onMouseUp={ clearEv }> + </button>
-        <div>{ curTime }</div>
-        <button name={ unit } onMouseDown={ decrease } onMouseUp={ clearEv }> - </button>
+        <button name={ unit } onMouseDown={ increase } onMouseUp={ clearEv }> ▲ </button>
+        <div className="time-unit">{ curTime }</div>
+        <button name={ unit } onMouseDown={ decrease } onMouseUp={ clearEv }> ▼ </button>
       </div>
     );
   }
